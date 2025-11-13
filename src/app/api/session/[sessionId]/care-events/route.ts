@@ -57,6 +57,7 @@ export async function POST(
       startedAt: refreshed.startedAt,
       targetLevel: refreshed.targetLevel,
       reportedLevel: refreshed.reportedLevel,
+      reportedAt: refreshed.reportedAt,
       drinks: refreshed.drinks,
       careEvents: refreshed.careEvents,
     },

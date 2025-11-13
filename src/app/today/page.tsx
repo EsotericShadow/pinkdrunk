@@ -36,13 +36,14 @@ export default async function TodayPage() {
     : null;
 
   return (
-    <main className="mx-auto w-full max-w-5xl px-6 py-12">
+    <main className="mx-auto w-full max-w-6xl py-6 lg:py-8">
       <TodayDashboard
         initialSession={active ? {
           id: active.id,
           startedAt: active.startedAt.toISOString(),
           targetLevel: active.targetLevel,
           reportedLevel: active.reportedLevel ?? null,
+          reportedAt: active.reportedAt ? active.reportedAt.toISOString() : null,
           drinks: active.drinks.map((drink) => ({
             ...drink,
             consumedAt: drink.consumedAt.toISOString(),

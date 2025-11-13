@@ -14,7 +14,7 @@ export default async function HistoryPage() {
   const sessions = await listRecentSessions(session.user.id, 10);
 
   return (
-    <main className="mx-auto w-full max-w-4xl px-6 py-12">
+    <main className="mx-auto w-full max-w-6xl py-6 lg:py-8">
       <Header />
       {sessions.length === 0 ? <EmptyState /> : <HistoryList sessions={sessions} />}
     </main>

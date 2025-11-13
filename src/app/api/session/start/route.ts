@@ -39,6 +39,7 @@ export async function POST() {
       startedAt: sessionRecord.startedAt,
       targetLevel: sessionRecord.targetLevel,
       reportedLevel: sessionRecord.reportedLevel,
+      reportedAt: sessionRecord.reportedAt,
       drinks,
       careEvents,
     },

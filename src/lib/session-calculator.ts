@@ -50,6 +50,7 @@ type CareOffsets = {
 
 const HYDRATION_WINDOW_MS = 1000 * 60 * 60 * 2; // 2 hours
 const FOOD_WINDOW_MS = 1000 * 60 * 60 * 3; // 3 hours
+const FELT_LEVEL_DECAY_MS = 1000 * 60 * 45; // treat manual reports as ground truth for 45 minutes
 
 function computeCareOffsets(events: CareEvent[], now: Date): CareOffsets {
   const nowMs = now.getTime();
@@ -124,7 +125,17 @@ export function computeSessionPrediction({
 
   const targetBac = pinkDrunkLevelToBac(targetLevel, profile.toleranceScore);
 
-  const drinksToTarget = estimateDrinksToTarget(caredLevel, targetLevel, (additionalGrams) => {
+  const hasFreshReport =
+    session.reportedLevel != null &&
+    session.reportedAt != null &&
+    now.getTime() - session.reportedAt.getTime() <= FELT_LEVEL_DECAY_MS;
+
+  const effectiveLevel = hasFreshReport && session.reportedLevel != null ? session.reportedLevel : caredLevel;
+  const effectiveAdjustedBac = hasFreshReport
+    ? Math.max(0, pinkDrunkLevelToBac(effectiveLevel, profile.toleranceScore))
+    : caredAdjustedBac;
+
+  const drinksToTarget = estimateDrinksToTarget(effectiveLevel, targetLevel, (additionalGrams) => {
     const future = calculateWidmark({
       totalAlcoholGrams: absorbedAlcoholGrams + additionalGrams,
       weightKg: profile.weightKg,
@@ -139,7 +150,7 @@ export function computeSessionPrediction({
   });
 
   const minutesToTarget = estimateMinutesToTarget(
-    caredAdjustedBac,
+    effectiveAdjustedBac,
     targetLevel,
     profile.toleranceScore,
     profile.metabolismScore
@@ -147,11 +158,11 @@ export function computeSessionPrediction({
 
   return {
     sessionId: session.id,
-    levelEstimate: caredLevel,
+    levelEstimate: effectiveLevel,
     bac,
-    adjustedBac: caredAdjustedBac,
+    adjustedBac: effectiveAdjustedBac,
     drinksToTarget,
-    recommendedAction: pickRecommendedAction(caredLevel, targetLevel, caredAdjustedBac, targetBac),
+    recommendedAction: pickRecommendedAction(effectiveLevel, targetLevel, effectiveAdjustedBac, targetBac),
     minutesToTarget,
     targetLevel,
     targetBac,

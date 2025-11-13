@@ -83,8 +83,8 @@ export default function OnboardingPage() {
   const progress = useMemo(() => ((step + 1) / onboardingSteps.length) * 100, [step]);
 
   return (
-    <main className="flex min-h-screen justify-center px-6 py-16">
-      <div className="w-full max-w-3xl space-y-10">
+    <main className="flex min-h-screen justify-center px-4 py-12 sm:px-6">
+      <div className="w-full max-w-4xl space-y-10">
         <header className="rounded-[var(--radius-lg)] border border-white/10 bg-white/5 p-8 backdrop-blur">
           <p className="text-xs uppercase tracking-[0.4em] text-[var(--color-accent)]">Onboarding</p>
           <div className="mt-4 flex items-center justify-between">

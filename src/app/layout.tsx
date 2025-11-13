@@ -46,7 +46,7 @@ export default function RootLayout({
         <Providers>
           <div className="min-h-screen">
             <header className="sticky top-0 z-20 border-b border-white/5 bg-[rgba(7,8,15,0.9)] backdrop-blur-xl">
-              <div className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-6 py-4 md:flex-row md:items-center md:justify-between">
+              <div className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-4 py-4 sm:px-6 md:flex-row md:items-center md:justify-between lg:px-8">
                 <div>
                   <p className="heading text-3xl text-[var(--color-primary)]">PINKDRUNK</p>
                   <p className="text-xs uppercase tracking-[0.3em] text-muted">Plan smarter nights.</p>
@@ -54,7 +54,7 @@ export default function RootLayout({
                 <MainNav />
               </div>
             </header>
-            <div className="mx-auto min-h-screen max-w-6xl px-6 py-12 md:px-10">
+            <div className="mx-auto min-h-screen max-w-6xl px-4 py-10 sm:px-6 md:px-8 lg:px-10">
               {children}
             </div>
           </div>

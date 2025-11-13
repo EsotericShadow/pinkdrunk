@@ -14,7 +14,7 @@ export default async function ProfilePage() {
     profile = await getRequiredProfile(session.user.id);
   } catch {
     return (
-      <main className="mx-auto w-full max-w-4xl px-6 py-12">
+      <main className="mx-auto w-full max-w-6xl py-6 lg:py-8">
         <h1 className="text-3xl font-semibold text-white">Profile</h1>
         <p className="mt-2 text-sm text-white/70">Complete onboarding to see your profile summary.</p>
       </main>
@@ -22,7 +22,7 @@ export default async function ProfilePage() {
   }
 
   return (
-    <main className="mx-auto w-full max-w-4xl px-6 py-12">
+    <main className="mx-auto w-full max-w-6xl py-6 lg:py-8">
       <h1 className="text-3xl font-semibold text-white">Profile</h1>
       <p className="mt-2 text-sm text-white/70">Manage your physiology details and PinkDrunk preferences.</p>
 

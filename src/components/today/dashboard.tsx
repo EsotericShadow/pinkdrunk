@@ -4,12 +4,11 @@ import { useEffect, useMemo, useState, useTransition } from "react";
 import { formatDistance, parseISO } from "date-fns";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { DrinkCategory, getDefaultOptionForCategory } from "@/lib/drink-catalog";
+import type { DrinkCategory } from "@/lib/drink-catalog";
 import { InfoBanner } from "@/components/ui/info-banner";
-import { DrinkFormState, EnhancedDrinkForm } from "./enhanced-drink-form";
 import { PinkDrunkScale } from "./pinkdrunk-scale";
 import { CalibrationPanel } from "./calibration-panel";
+import { SessionAssistantChat } from "./session-assistant-chat";
 
 type Drink = {
   id: string;
@@ -34,6 +33,7 @@ export type SessionPayload = {
   drinks: Drink[];
   careEvents: CareEvent[];
   reportedLevel?: number | null;
+  reportedAt?: string | null;
 };
 
 export type PredictionPayload = {
@@ -56,13 +56,6 @@ type Props = {
   profileTargetLevel: number;
 };
 
-type EditDrinkFormState = {
-  label: string;
-  abvPercent: string;
-  volumeMl: string;
-  category: DrinkFormState["category"];
-};
-
 function normalizeSessionPayload(session: SessionPayload): SessionPayload {
   return {
     ...session,
@@ -77,45 +70,17 @@ function normalizeSessionPayload(session: SessionPayload): SessionPayload {
       createdAt: new Date(event.createdAt).toISOString(),
     })),
     reportedLevel: session.reportedLevel ?? null,
+    reportedAt: session.reportedAt ? new Date(session.reportedAt).toISOString() : null,
   };
 }
-
-
-const buildDefaultDrinkForm = (): DrinkFormState => {
-  const defaultOption = getDefaultOptionForCategory("beer");
-  return {
-    category: "beer",
-    mode: "catalog",
-    optionId: defaultOption?.id,
-    label: defaultOption?.name ?? "",
-    abvPercent: (defaultOption?.abvPercent ?? 5).toString(),
-    volumeMl: (defaultOption?.defaultVolumeMl ?? 355).toString(),
-    quantity: "1",
-  };
-};
-
-const buildEmptyEditForm = (): EditDrinkFormState => ({
-  label: "",
-  abvPercent: "",
-  volumeMl: "",
-  category: "beer",
-});
-
-const drinkCategories: DrinkFormState["category"][] = ["beer", "wine", "cocktail", "shot", "other"];
 
 export function TodayDashboard({ initialSession, initialPrediction, profileTargetLevel }: Props) {
   const [session, setSession] = useState<SessionPayload | null>(
     initialSession ? normalizeSessionPayload(initialSession) : null
   );
   const [prediction, setPrediction] = useState<PredictionPayload | null>(initialPrediction);
-  const [drinkForm, setDrinkForm] = useState<DrinkFormState>(() => buildDefaultDrinkForm());
   const [errors, setErrors] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
-  const [feltLevelInput, setFeltLevelInput] = useState(() =>
-    (initialPrediction?.levelEstimate ?? profileTargetLevel).toFixed(1)
-  );
-  const [editingDrinkId, setEditingDrinkId] = useState<string | null>(null);
-  const [editDrinkForm, setEditDrinkForm] = useState<EditDrinkFormState>(() => buildEmptyEditForm());
   const [now, setNow] = useState(() => Date.now());
 
   useEffect(() => {
@@ -138,22 +103,20 @@ export function TodayDashboard({ initialSession, initialPrediction, profileTarge
       },
       {
         key: "drink",
-        label: "Log a drink",
-        description: hasDrink ? "Latest pour saved." : "Tap a drink card right after you sip.",
+        label: "Chat a drink",
+        description: hasDrink ? "Latest pour saved." : "Tell the assistant what you sipped.",
         done: hasDrink,
       },
       {
         key: "feel",
-        label: "Check feelings",
-        description: hasFeelReport
-          ? "Last check-in saved."
-          : "When the emoji appears, tap the face that matches how you feel.",
+        label: "Share feelings",
+        description: hasFeelReport ? "Last check-in saved." : "Explain how you feel in chat when prompted.",
         done: hasFeelReport,
       },
       {
         key: "hydrate",
         label: "Sip water",
-        description: hasHydration ? "Hydration logged." : "Use a water button after every couple of drinks.",
+        description: hasHydration ? "Hydration logged." : "Mention water or snacks so we log care events.",
         done: hasHydration,
       },
     ];
@@ -191,219 +154,22 @@ export function TodayDashboard({ initialSession, initialPrediction, profileTarge
     };
   }, [session, prediction]);
 
-  const startSession = () => {
-    setErrors(null);
-    startTransition(async () => {
-      const response = await fetch("/api/session/start", { method: "POST" });
-      if (!response.ok) {
-        setErrors("Couldn’t start session. Complete onboarding first.");
-        return;
-      }
-      const data = (await response.json()) as { session: SessionPayload; prediction: PredictionPayload };
-      setSession(normalizeSessionPayload(data.session));
-      setPrediction(data.prediction);
-    });
-  };
-
-  const submitDrink = (
-    payload: { category: DrinkFormState["category"]; label?: string; abvPercent: number; volumeMl: number },
-    onSuccess?: () => void
-  ) => {
-    if (!session) return;
-    setErrors(null);
-    startTransition(async () => {
-      const response = await fetch(`/api/session/${session.id}/drinks`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) {
-        setErrors("Could not log entry. Check your inputs.");
-        return;
-      }
-
-      const data = (await response.json()) as { session: SessionPayload; prediction: PredictionPayload };
-      setSession(normalizeSessionPayload(data.session));
-      setPrediction(data.prediction);
-      onSuccess?.();
-    });
-  };
-
-  const submitCareEvent = (payload: { type: CareEvent["type"]; volumeMl?: number | null }) => {
-    if (!session) return;
-    setErrors(null);
-    startTransition(async () => {
-      const response = await fetch(`/api/session/${session.id}/care-events`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) {
-        setErrors("Could not log care event. Try again.");
-        return;
-      }
-
-      const data = (await response.json()) as { session: SessionPayload; prediction: PredictionPayload };
-      setSession(normalizeSessionPayload(data.session));
-      setPrediction(data.prediction);
-    });
-  };
-
-  const submitLevelReport = () => {
-    if (!session) return;
-    const parsedLevel = Number(feltLevelInput);
-    if (!Number.isFinite(parsedLevel)) {
-      setErrors("Enter how you actually feel first.");
-      return;
+  const reportedSummary = useMemo(() => {
+    if (!session || session.reportedLevel == null || !session.reportedAt) {
+      return null;
     }
-    setErrors(null);
-    startTransition(async () => {
-      const response = await fetch(`/api/session/${session.id}/report`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ level: parsedLevel }),
-      });
-
-      if (!response.ok) {
-        setErrors("Could not record your level. Try again.");
-        return;
-      }
-
-      const data = (await response.json()) as { session: SessionPayload; prediction: PredictionPayload };
-      setSession(normalizeSessionPayload(data.session));
-      setPrediction(data.prediction);
-    });
-  };
-
-  const logDrink = () => {
-    const abvPercent = Number(drinkForm.abvPercent);
-    const baseVolume = Number(drinkForm.volumeMl);
-    const quantity = Math.max(Number(drinkForm.quantity) || 1, 0.25);
-    const volumeMl = baseVolume * quantity;
-    const trimmedLabel = drinkForm.label?.trim() ?? "";
-    const fallbackLabel =
-      trimmedLabel.length > 0
-        ? trimmedLabel
-        : drinkForm.mode === "custom"
-          ? `Custom ${drinkForm.category}`
-          : getDefaultOptionForCategory(drinkForm.category)?.name ?? drinkForm.category;
-
-    if (!Number.isFinite(abvPercent) || abvPercent <= 0 || !Number.isFinite(volumeMl) || volumeMl <= 0) {
-      setErrors("Enter a valid ABV and volume before logging.");
-      return;
-    }
-
-    submitDrink(
-      {
-        category: drinkForm.category,
-        label: fallbackLabel,
-        abvPercent,
-        volumeMl,
-      },
-      () => setDrinkForm(buildDefaultDrinkForm())
-    );
-  };
-
-  const logWater = (volumeMl: number) => {
-    submitCareEvent({ type: "water", volumeMl });
-  };
-
-  const logFood = (type: "snack" | "meal") => {
-    submitCareEvent({ type, volumeMl: type === "snack" ? 80 : 200 });
-  };
-
-  const startEditingDrink = (drink: Drink) => {
-    setErrors(null);
-    setEditingDrinkId(drink.id);
-    setEditDrinkForm({
-      label: drink.label ?? "",
-      abvPercent: drink.abvPercent.toString(),
-      volumeMl: drink.volumeMl.toString(),
-      category: drink.category,
-    });
-  };
-
-  const cancelEditingDrink = () => {
-    setEditingDrinkId(null);
-    setEditDrinkForm(buildEmptyEditForm());
-  };
-
-  const handleEditDrinkFieldChange = <K extends keyof EditDrinkFormState>(
-    field: K,
-    value: EditDrinkFormState[K]
-  ) => {
-    setEditDrinkForm((previous) => ({ ...previous, [field]: value }));
-  };
-
-  const saveEditedDrink = () => {
-    if (!session || !editingDrinkId) return;
-
-    const trimmedLabel = editDrinkForm.label.trim();
-    const abvPercent = Number(editDrinkForm.abvPercent);
-    const volumeMl = Number(editDrinkForm.volumeMl);
-
-    if (!trimmedLabel) {
-      setErrors("Give the drink a short label first.");
-      return;
-    }
-
-    if (!Number.isFinite(abvPercent) || abvPercent <= 0 || !Number.isFinite(volumeMl) || volumeMl <= 0) {
-      setErrors("Enter valid ABV and volume numbers before saving.");
-      return;
-    }
-
-    setErrors(null);
-    startTransition(async () => {
-      const response = await fetch(`/api/session/${session.id}/drinks/${editingDrinkId}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          category: editDrinkForm.category,
-          label: trimmedLabel,
-          abvPercent,
-          volumeMl,
-        }),
-      });
-
-      if (!response.ok) {
-        setErrors("Could not update drink. Try again.");
-        return;
-      }
-
-      const data = (await response.json()) as { session: SessionPayload; prediction: PredictionPayload };
-      setSession(normalizeSessionPayload(data.session));
-      setPrediction(data.prediction);
-      cancelEditingDrink();
-    });
-  };
-
-  const lastCareEvent = (type: CareEvent["type"] | "food") => {
-    if (!session) return null;
-    let matching: CareEvent[] = [];
-    if (type === "food") {
-      matching = session.careEvents.filter((event) => event.type === "meal" || event.type === "snack");
-    } else {
-      matching = session.careEvents.filter((event) => event.type === type);
-    }
-    matching.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
-    return matching.at(-1) ?? null;
-  };
-
-  const lastWater = lastCareEvent("water");
-  const lastFood = lastCareEvent("food");
+    const reportedDate = parseISO(session.reportedAt);
+    const drinksAtReport = session.drinks.filter(
+      (drink) => parseISO(drink.consumedAt).getTime() <= reportedDate.getTime()
+    ).length;
+    return {
+      drinks: drinksAtReport,
+      timestamp: reportedDate,
+    };
+  }, [session]);
 
   useEffect(() => {
-    if (!session?.id || editingDrinkId) {
+    if (!session?.id) {
       return;
     }
 
@@ -438,7 +204,21 @@ export function TodayDashboard({ initialSession, initialPrediction, profileTarge
       cancelled = true;
       window.clearInterval(interval);
     };
-  }, [session?.id, editingDrinkId]);
+  }, [session?.id]);
+
+  const startSession = () => {
+    setErrors(null);
+    startTransition(async () => {
+      const response = await fetch("/api/session/start", { method: "POST" });
+      if (!response.ok) {
+        setErrors("Couldn’t start session. Complete onboarding first.");
+        return;
+      }
+      const data = (await response.json()) as { session: SessionPayload; prediction: PredictionPayload };
+      setSession(normalizeSessionPayload(data.session));
+      setPrediction(data.prediction);
+    });
+  };
 
   const endCurrentSession = (reason: "user_end" | "auto_alert" | "timeout" = "user_end") => {
     if (!session) return;
@@ -458,6 +238,11 @@ export function TodayDashboard({ initialSession, initialPrediction, profileTarge
       setSession(null);
       setPrediction(null);
     });
+  };
+
+  const handleAssistantUpdate = (next: { session: SessionPayload; prediction: PredictionPayload }) => {
+    setSession(normalizeSessionPayload(next.session));
+    setPrediction(next.prediction);
   };
 
   return (
@@ -489,7 +274,7 @@ export function TodayDashboard({ initialSession, initialPrediction, profileTarge
         <div>
           <h1 className="font-display text-4xl uppercase tracking-[0.2em] text-white">Tonight</h1>
           <p className="mt-2 text-sm text-white/70">
-            Track each drink and how you feel so tomorrow’s you knows exactly what happened.
+            Talk to PinkDrunk like a friend: describe pours, show photos, and explain how you feel. We’ll keep the log updated.
           </p>
         </div>
         {!session ? (
@@ -505,12 +290,12 @@ export function TodayDashboard({ initialSession, initialPrediction, profileTarge
 
       <InfoBanner
         title="How to use tonight"
-        body="Keep these four steps in mind while you move through the night."
+        body="Keep these tips in mind while you move through the night."
         items={[
           "Start a session before your first drink so timing stays accurate.",
-          "Pick a drink card or add quick custom details right after you finish a pour.",
-          "When the emoji prompt appears, report how you feel.",
-          "Use the water or snack buttons and end the session with a final level.",
+          "Snap a photo or describe the pour—PinkDrunk will log the drink for you.",
+          "Tell the assistant how you feel and when you hydrate or snack.",
+          "End the session once you’re done so the recap stays crisp.",
         ]}
       />
 
@@ -531,50 +316,19 @@ export function TodayDashboard({ initialSession, initialPrediction, profileTarge
               <Metric label="Recommendation" value={prediction.recommendedAction.toUpperCase()} />
             </div>
           )}
+          {session?.reportedLevel != null && reportedSummary && (
+            <p className="text-xs uppercase tracking-wide text-white/60">
+              Last reported level {session.reportedLevel.toFixed(1)} after {reportedSummary.drinks} drink
+              {reportedSummary.drinks === 1 ? "" : "s"} · {formatDistance(reportedSummary.timestamp, new Date(now), { addSuffix: true })}
+            </p>
+          )}
         </div>
 
-        <div className="lg:col-span-2 space-y-4 rounded-[var(--radius-lg)] border border-white/10 bg-white/5 p-6 backdrop-blur">
-          <h2 className="text-lg font-semibold text-white">Log a drink</h2>
-          <EnhancedDrinkForm drinkForm={drinkForm} isPending={isPending} onChange={setDrinkForm} onSubmit={logDrink} disabled={!session} />
-        </div>
-      </section>
-
-      <section className="rounded-[var(--radius-lg)] border border-white/10 bg-white/5 p-6 backdrop-blur">
-        <h2 className="text-lg font-semibold text-white">Care actions</h2>
-        <p className="mt-1 text-sm text-white/70">
-          Log water or food so the projection reflects what your body is doing right now.
-        </p>
-        <div className="mt-4 grid gap-3 md:grid-cols-4">
-          <Button variant="secondary" disabled={!session || isPending} onClick={() => logWater(240)}>
-            Water 8oz
-          </Button>
-          <Button variant="secondary" disabled={!session || isPending} onClick={() => logWater(480)}>
-            Water 16oz
-          </Button>
-          <Button
-            variant="secondary"
-            className="border-white/20 bg-transparent text-white hover:border-white"
-            disabled={!session || isPending}
-            onClick={() => logFood("snack")}
-          >
-            Log snack
-          </Button>
-          <Button
-            variant="secondary"
-            className="border-white/20 bg-transparent text-white hover:border-white"
-            disabled={!session || isPending}
-            onClick={() => logFood("meal")}
-          >
-            Log meal
-          </Button>
-        </div>
-        <div className="mt-4 flex flex-wrap gap-4 text-xs uppercase tracking-wide text-white/60">
-          <span>
-            Last water: {lastWater ? formatDistance(parseISO(lastWater.createdAt), new Date(now), { addSuffix: true }) : "not yet"}
-          </span>
-          <span>
-            Last food: {lastFood ? formatDistance(parseISO(lastFood.createdAt), new Date(now), { addSuffix: true }) : "not yet"}
-          </span>
+        <div className="lg:col-span-2 space-y-4 rounded-[var(--radius-lg)] border border-white/10 bg-white/5 p-0 backdrop-blur">
+          <SessionAssistantChat
+            session={session}
+            onSessionUpdate={handleAssistantUpdate}
+          />
         </div>
       </section>
 
@@ -593,47 +347,6 @@ export function TodayDashboard({ initialSession, initialPrediction, profileTarge
         />
       </section>
 
-      <section className="space-y-4 rounded-[var(--radius-lg)] border border-white/10 bg-white/5 p-6 backdrop-blur">
-        <div>
-          <h2 className="text-lg font-semibold text-white">Call your level</h2>
-          <p className="mt-1 text-sm text-white/70">
-            Tell us how you actually feel (0–10). We’ll use it to calibrate your personal thresholds.
-          </p>
-        </div>
-        <div className="flex flex-col gap-3">
-          <input
-            type="range"
-            min={0}
-            max={10}
-            step={0.1}
-            value={feltLevelInput}
-            onChange={(event) => setFeltLevelInput(event.target.value)}
-            className="accent-[var(--color-primary)]"
-            disabled={!session || isPending}
-          />
-          <div className="flex flex-wrap items-center gap-3">
-            <input
-              type="number"
-              min={0}
-              max={10}
-              step={0.1}
-              value={feltLevelInput}
-              onChange={(event) => setFeltLevelInput(event.target.value)}
-              disabled={!session || isPending}
-              className="w-24 rounded-md border border-white/20 bg-transparent px-3 py-2 text-sm text-white focus:border-[var(--color-primary)] focus:outline-none"
-            />
-            <Button onClick={submitLevelReport} disabled={!session || isPending}>
-              Save level
-            </Button>
-            {session?.reportedLevel != null && (
-              <p className="text-xs uppercase tracking-wide text-white/60">
-                Last reported: level {session.reportedLevel.toFixed(1)}
-              </p>
-            )}
-          </div>
-        </div>
-      </section>
-
       <section className="rounded-[var(--radius-lg)] border border-white/10 bg-white/5 p-6 backdrop-blur">
         <h2 className="text-lg font-semibold text-white">Tonight’s log</h2>
         {!session || session.drinks.length === 0 ? (
@@ -645,98 +358,14 @@ export function TodayDashboard({ initialSession, initialPrediction, profileTarge
                 key={drink.id}
                 className="space-y-3 rounded-[var(--radius-sm)] bg-white/5 px-4 py-3 text-sm text-white/80"
               >
-                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                  <div>
-                    <p className="font-semibold text-white">
-                      {drink.label || drink.category}
-                    </p>
-                    <p className="text-xs text-white/60">
-                      {drink.category} · {drink.abvPercent}% · {drink.volumeMl}ml · consumed {" "}
-                      {formatDistance(parseISO(drink.consumedAt), new Date(now), { addSuffix: true })}
-                    </p>
-                  </div>
-                  {editingDrinkId !== drink.id && (
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="sm"
-                      className="self-start sm:self-auto"
-                      onClick={() => startEditingDrink(drink)}
-                      disabled={isPending}
-                    >
-                      Edit
-                    </Button>
-                  )}
+                <div>
+                  <p className="font-semibold text-white">
+                    {drink.label || drink.category}
+                  </p>
+                  <p className="text-xs text-white/60">
+                    {drink.category} · {drink.abvPercent}% · {drink.volumeMl}ml · consumed {formatDistance(parseISO(drink.consumedAt), new Date(now), { addSuffix: true })}
+                  </p>
                 </div>
-                {editingDrinkId === drink.id && (
-                  <form
-                    className="space-y-3 rounded-[var(--radius-sm)] border border-white/10 bg-black/30 p-3"
-                    onSubmit={(event) => {
-                      event.preventDefault();
-                      saveEditedDrink();
-                    }}
-                  >
-                    <div className="grid gap-3 md:grid-cols-4">
-                      <div className="md:col-span-2">
-                        <label className="text-xs uppercase tracking-wide text-white/60">Label</label>
-                        <Input
-                          value={editDrinkForm.label}
-                          onChange={(event) => handleEditDrinkFieldChange("label", event.target.value)}
-                          disabled={isPending}
-                        />
-                      </div>
-                      <div>
-                        <label className="text-xs uppercase tracking-wide text-white/60">Category</label>
-                        <select
-                          value={editDrinkForm.category}
-                          onChange={(event) =>
-                            handleEditDrinkFieldChange("category", event.target.value as DrinkFormState["category"])
-                          }
-                          disabled={isPending}
-                          className="w-full rounded-md border border-white/20 bg-transparent px-3 py-2 text-sm capitalize text-white focus:border-[var(--color-primary)] focus:outline-none"
-                        >
-                          {drinkCategories.map((category) => (
-                            <option key={category} value={category} className="bg-[#0f0f0f] text-white">
-                              {category}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                      <div>
-                        <label className="text-xs uppercase tracking-wide text-white/60">ABV %</label>
-                        <Input
-                          type="number"
-                          min="0.1"
-                          max="96"
-                          step="0.1"
-                          value={editDrinkForm.abvPercent}
-                          onChange={(event) => handleEditDrinkFieldChange("abvPercent", event.target.value)}
-                          disabled={isPending}
-                        />
-                      </div>
-                      <div>
-                        <label className="text-xs uppercase tracking-wide text-white/60">Volume (ml)</label>
-                        <Input
-                          type="number"
-                          min="10"
-                          max="2000"
-                          step="10"
-                          value={editDrinkForm.volumeMl}
-                          onChange={(event) => handleEditDrinkFieldChange("volumeMl", event.target.value)}
-                          disabled={isPending}
-                        />
-                      </div>
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      <Button type="button" variant="secondary" onClick={cancelEditingDrink} disabled={isPending}>
-                        Cancel
-                      </Button>
-                      <Button type="submit" disabled={isPending}>
-                        Save changes
-                      </Button>
-                    </div>
-                  </form>
-                )}
               </li>
             ))}
           </ul>

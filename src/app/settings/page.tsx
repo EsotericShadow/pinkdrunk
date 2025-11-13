@@ -28,7 +28,7 @@ export default async function SettingsPage() {
   const profileInitialValues = buildProfileFormValues(profile, settings.units);
 
   return (
-    <main className="mx-auto w-full max-w-3xl px-6 py-12">
+    <main className="mx-auto w-full max-w-6xl py-6 lg:py-8">
       <h1 className="text-3xl font-semibold text-white">Settings</h1>
       <p className="mt-2 text-sm text-white/70">
         Adjust your physiology, preferences, and account controls. Translation: give the math something better than “idk I guess four drinks”.

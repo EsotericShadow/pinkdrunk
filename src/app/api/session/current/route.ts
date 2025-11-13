@@ -37,6 +37,7 @@ export async function GET() {
       startedAt: active.startedAt,
       targetLevel: active.targetLevel,
       reportedLevel: active.reportedLevel,
+      reportedAt: active.reportedAt,
       drinks: active.drinks,
       careEvents: active.careEvents,
     },
