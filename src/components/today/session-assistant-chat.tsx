@@ -226,7 +226,7 @@ export function SessionAssistantChat({ session, onSessionUpdate }: SessionAssist
             </button>
             <input
               type="text"
-              className="flex-1 bg-transparent text-sm text-white placeholder:text-white/40 focus:outline-none"
+              className="flex-1 bg-transparent text-base text-white placeholder:text-white/40 focus:outline-none"
               placeholder={session ? "“Just had a hazy IPA...”" : "Start a session first"}
               value={input}
               onChange={(event) => setInput(event.target.value)}
