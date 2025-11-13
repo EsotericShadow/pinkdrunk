@@ -1,42 +1,42 @@
 import Link from "next/link";
 
 const heroHighlights = [
-  { label: "Tracked pours", value: "250k+" },
-  { label: "Sessions adjusted", value: "42% faster" },
-  { label: "Hydration saves", value: "18,903" },
+  { label: "1. Start", body: "Open a session before your first pour." },
+  { label: "2. Log drink", body: "Pick a preset card or add a quick custom pour." },
+  { label: "3. Stay on track", body: "We remind you to check in, hydrate, or slow down." },
 ];
 
 const featureCards = [
   {
-    title: "Auto-math logging",
-    body: "Macro lagers, mezcal riffs, hard kombucha—everything is converted to grams, not vibes.",
+    title: "Clear guidance",
+    body: "We translate the numbers into prompts like “Wait 20 minutes” or “Grab some water.”",
   },
   {
-    title: "Felt-state updates",
-    body: "Tap your level, let EWMA do the rest. Thresholds move with your chaos, not old data.",
+    title: "Quick drink cards",
+    body: "Beer, wine, cocktail, shot—each card shows the default pour so you rarely type.",
   },
   {
-    title: "Care modifiers",
-    body: "Hydration and snacks temporarily bend absorption curves so you see reality, not fear.",
+    title: "Easy feel check-ins",
+    body: "Emoji faces pop up periodically. Tap how you feel and we update the projection.",
   },
   {
-    title: "Projection mode",
-    body: "Preview the night before you hit submit—peak time, level, and recovery ETA in one card.",
+    title: "Care reminders",
+    body: "Hydration and snack buttons log support actions and gently soften the curve.",
   },
 ];
 
 const roadmap = [
   {
-    title: "01 · Profile",
-    body: "Height, meds, tone tolerance. Cold, clinical inputs so the jokes land later.",
+    title: "01 · Quick setup",
+    body: "Enter the basics now and update deeper profile details later.",
   },
   {
-    title: "02 · Session",
-    body: "Log pours, log how you feel, let the model nag you to sip water like it’s a hobby.",
+    title: "02 · Guided session",
+    body: "Follow the checklist: start, log, feel, hydrate.",
   },
   {
-    title: "03 · Debrief",
-    body: "See what actually happened and what needs to chill before the next lap.",
+    title: "03 · Next-day summary",
+    body: "Wake up to a recap so you know what worked.",
   },
 ];
 
@@ -47,55 +47,61 @@ export default function Home() {
         <div className="space-y-6">
           <span className="tag-pill inline-flex items-center gap-3 text-xs text-muted">
             <span className="h-2 w-2 rounded-full bg-[var(--color-accent)]"></span>
-            Skin-in-the-game harm reduction
+            Guided nights, zero guesswork
           </span>
           <h1 className="heading text-[var(--color-primary)]">
-            The friend who watches the bar when you don’t.
+            We keep your night on track.
           </h1>
           <p className="text-lg text-muted">
-            PINKDRUNK keeps score so you don’t have to: pours in, feels out, hydration reminders, “maybe sit down” warnings. No judgment—just honest receipts.
+            Pinkdrunk walks you through the evening: start a session, tap the drink you had, and we nudge you when it’s time to slow down or hydrate. Simple buttons, clear reminders.
           </p>
           <div className="grid gap-4 md:grid-cols-2">
             <HeroCard
-              title="Every drink becomes math"
-              description="Custom catalog + grams-first modelling keep projections honest even when bartenders freestyle."
+              title="You tap, we handle math"
+              description="Default pours + auto conversions mean no ounce guessing or ABV searching."
             />
             <HeroCard
-              title="Report how you actually feel"
-              description="One tap on the felt scale nudges your impairment thresholds with EWMA brainpower."
+              title="Feel check in plain words"
+              description="Emoji faces and giant buttons instead of tiny sliders or confusing scales."
             />
           </div>
-          <div className="flex flex-col gap-4 sm:flex-row">
-            <Link
-              href="/signup"
-              className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] px-10 py-4 font-display text-lg uppercase tracking-[0.35em] text-[var(--color-background)] shadow-[var(--shadow-hard)] transition hover:scale-[1.02]"
-            >
-              Start logging
-            </Link>
-            <Link
-              href="/signin"
-              className="inline-flex items-center justify-center rounded-full border border-white/20 px-10 py-4 text-sm font-semibold text-muted transition hover:border-white/50 hover:text-foreground"
-            >
-              Already calibrated? Sign in
-            </Link>
+          <div className="flex flex-col gap-3 text-center sm:flex-row sm:items-center sm:pl-6 sm:text-left">
+            <div className="sm:text-left">
+              <Link
+                href="/signup"
+                className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] px-8 py-3 font-display text-xs uppercase tracking-[0.18em] text-[var(--color-background)] shadow-[var(--shadow-hard)] transition hover:scale-[1.02] whitespace-nowrap"
+              >
+                Start session
+              </Link>
+              <p className="mt-1 text-xs uppercase tracking-[0.3em] text-muted">setup takes ~30s</p>
+            </div>
+            <div className="sm:ml-[4.6rem] sm:text-left">
+              <Link
+                href="/signin"
+                className="inline-flex items-center justify-center rounded-full border border-white/20 px-9 py-3.5 text-sm font-semibold uppercase tracking-[0.18em] text-muted transition hover:border-white/50 hover:text-foreground"
+              >
+                Sign in
+              </Link>
+              <p className="mt-1 text-xs uppercase tracking-[0.3em] text-muted">already have an account</p>
+            </div>
           </div>
         </div>
         <div className="glass-panel relative overflow-hidden p-6">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(240,91,231,0.2),transparent)]" />
           <div className="relative space-y-6">
             <div className="flex items-center justify-between">
-              <span className="text-xs uppercase tracking-[0.4em] text-muted">Live telemetry</span>
-              <span className="rounded-full bg-[var(--color-secondary)]/30 px-3 py-1 text-xs uppercase tracking-[0.2em] text-[var(--color-secondary)]">beta</span>
+              <span className="text-xs uppercase tracking-[0.4em] text-muted">How it works</span>
+              <span className="rounded-full bg-[var(--color-secondary)]/30 px-3 py-1 text-xs uppercase tracking-[0.2em] text-[var(--color-secondary)]">simple steps</span>
             </div>
-            {heroHighlights.map((metric) => (
-              <div key={metric.label} className="border-b border-white/10 pb-4">
-                <p className="text-sm text-muted">{metric.label}</p>
-                <p className="font-display text-4xl text-[var(--color-foreground)]">{metric.value}</p>
+            {heroHighlights.map((step) => (
+              <div key={step.label} className="border-b border-white/10 pb-4">
+                <p className="text-sm font-semibold text-[var(--color-foreground)]">{step.label}</p>
+                <p className="mt-1 text-sm text-muted">{step.body}</p>
               </div>
             ))}
             <div>
-              <p className="text-sm uppercase tracking-[0.4em] text-muted">Tonight’s vibe</p>
-              <p className="mt-2 text-2xl font-semibold text-[var(--color-foreground)]">“You’re fine. Also you said that last time.”</p>
+              <p className="text-sm uppercase tracking-[0.4em] text-muted">Promise</p>
+              <p className="mt-2 text-2xl font-semibold text-[var(--color-foreground)]">“No thinking required. Just tap when you sip.”</p>
             </div>
           </div>
         </div>

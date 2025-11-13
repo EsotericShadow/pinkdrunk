@@ -97,6 +97,54 @@ export function TodayDashboard({ initialSession, initialPrediction, profileTarge
     (initialPrediction?.levelEstimate ?? profileTargetLevel).toFixed(1)
   );
 
+  const stepStates = useMemo(() => {
+    const hasSession = Boolean(session);
+    const hasDrink = Boolean(session && session.drinks.length > 0);
+    const hasFeelReport = Boolean(session && session.reportedLevel != null);
+    const hasHydration = Boolean(session && session.careEvents.some((event) => event.type === "water"));
+
+    const steps = [
+      {
+        key: "start",
+        label: "Start session",
+        description: hasSession ? "Session running." : "Tap Start to begin.",
+        done: hasSession,
+      },
+      {
+        key: "drink",
+        label: "Log a drink",
+        description: hasDrink ? "Latest pour saved." : "Tap a drink card right after you sip.",
+        done: hasDrink,
+      },
+      {
+        key: "feel",
+        label: "Check feelings",
+        description: hasFeelReport
+          ? "Last check-in saved."
+          : "When the emoji appears, tap the face that matches how you feel.",
+        done: hasFeelReport,
+      },
+      {
+        key: "hydrate",
+        label: "Sip water",
+        description: hasHydration ? "Hydration logged." : "Use a water button after every couple of drinks.",
+        done: hasHydration,
+      },
+    ];
+
+    let foundCurrent = false;
+    return steps.map((step) => {
+      if (step.done) {
+        return { ...step, status: "done" as const };
+      }
+      if (!foundCurrent) {
+        foundCurrent = true;
+        return { ...step, status: "current" as const };
+      }
+      return { ...step, status: "upcoming" as const };
+    });
+  }, [session]);
+
   const statusPanel = useMemo(() => {
     if (!session || !prediction) {
       return {
@@ -214,6 +262,13 @@ export function TodayDashboard({ initialSession, initialPrediction, profileTarge
     const baseVolume = Number(drinkForm.volumeMl);
     const quantity = Math.max(Number(drinkForm.quantity) || 1, 0.25);
     const volumeMl = baseVolume * quantity;
+    const trimmedLabel = drinkForm.label?.trim() ?? "";
+    const fallbackLabel =
+      trimmedLabel.length > 0
+        ? trimmedLabel
+        : drinkForm.mode === "custom"
+          ? `Custom ${drinkForm.category}`
+          : getDefaultOptionForCategory(drinkForm.category)?.name ?? drinkForm.category;
 
     if (!Number.isFinite(abvPercent) || abvPercent <= 0 || !Number.isFinite(volumeMl) || volumeMl <= 0) {
       setErrors("Enter a valid ABV and volume before logging.");
@@ -223,7 +278,7 @@ export function TodayDashboard({ initialSession, initialPrediction, profileTarge
     submitDrink(
       {
         category: drinkForm.category,
-        label: drinkForm.label === "" ? undefined : drinkForm.label,
+        label: fallbackLabel,
         abvPercent,
         volumeMl,
       },
@@ -276,16 +331,39 @@ export function TodayDashboard({ initialSession, initialPrediction, profileTarge
 
   return (
     <div className="space-y-8">
+      <section className="glass-panel space-y-4 p-5">
+        <div className="flex items-center justify-between">
+          <p className="text-xs uppercase tracking-[0.4em] text-muted">Tonight checklist</p>
+          <p className="text-xs text-muted">Follow each step in order.</p>
+        </div>
+        <div className="grid gap-3 md:grid-cols-4">
+          {stepStates.map((step) => (
+            <div
+              key={step.key}
+              className={`rounded-[var(--radius-md)] border px-4 py-3 text-sm transition ${
+                step.status === "done"
+                  ? "border-emerald-400/40 bg-emerald-400/10 text-emerald-100"
+                  : step.status === "current"
+                    ? "border-white/40 bg-white/10 text-white"
+                    : "border-white/10 bg-transparent text-muted"
+              }`}
+            >
+              <p className="text-xs uppercase tracking-[0.3em]">{step.label}</p>
+              <p className="mt-1 text-[13px] leading-tight">{step.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
       <header className="flex flex-col gap-4 rounded-[var(--radius-lg)] border border-white/10 bg-white/5 p-8 backdrop-blur md:flex-row md:items-center md:justify-between">
         <div>
           <h1 className="font-display text-4xl uppercase tracking-[0.2em] text-white">Tonight</h1>
           <p className="mt-2 text-sm text-white/70">
-            Log the chaos in real time so future-you has receipts. Hydrate if we yell. Ignore us if you love regret.
+            Track each drink and how you feel so tomorrow’s you knows exactly what happened.
           </p>
         </div>
         {!session ? (
           <Button onClick={startSession} disabled={isPending}>
-            Start a session
+            Start session
           </Button>
         ) : (
           <Button variant="secondary" onClick={() => endCurrentSession()} disabled={isPending}>
@@ -295,13 +373,13 @@ export function TodayDashboard({ initialSession, initialPrediction, profileTarge
       </header>
 
       <InfoBanner
-        title="How PinkDrunk mirrors your night"
-        body="Log drinks with volume + ABV, tell us how you feel, and we’ll keep the prediction honest."
+        title="How to use tonight"
+        body="Keep these four steps in mind while you move through the night."
         items={[
-          "Start a session before your first pour so timestamps stay accurate.",
-          "Use the drink form’s presets or enter the ABV if it’s a custom mix.",
-          "Tap the hydration/food buttons when you sip water or eat—it changes the model.",
-          "End the session with your self-rated level so the system learns your curve.",
+          "Start a session before your first drink so timing stays accurate.",
+          "Pick a drink card or add quick custom details right after you finish a pour.",
+          "When the emoji prompt appears, report how you feel.",
+          "Use the water or snack buttons and end the session with a final level.",
         ]}
       />
 
@@ -333,14 +411,14 @@ export function TodayDashboard({ initialSession, initialPrediction, profileTarge
       <section className="rounded-[var(--radius-lg)] border border-white/10 bg-white/5 p-6 backdrop-blur">
         <h2 className="text-lg font-semibold text-white">Care actions</h2>
         <p className="mt-1 text-sm text-white/70">
-          Hydrate and refuel to keep your metabolism on your side. These entries gently pull predictions down instead of letting the curve run away.
+          Log water or food so the projection reflects what your body is doing right now.
         </p>
         <div className="mt-4 grid gap-3 md:grid-cols-4">
           <Button variant="secondary" disabled={!session || isPending} onClick={() => logWater(240)}>
-            + 8 oz water
+            Water 8oz
           </Button>
           <Button variant="secondary" disabled={!session || isPending} onClick={() => logWater(480)}>
-            + 16 oz water
+            Water 16oz
           </Button>
           <Button
             variant="secondary"
@@ -348,7 +426,7 @@ export function TodayDashboard({ initialSession, initialPrediction, profileTarge
             disabled={!session || isPending}
             onClick={() => logFood("snack")}
           >
-            Logged a snack
+            Log snack
           </Button>
           <Button
             variant="secondary"
@@ -356,7 +434,7 @@ export function TodayDashboard({ initialSession, initialPrediction, profileTarge
             disabled={!session || isPending}
             onClick={() => logFood("meal")}
           >
-            Ate a meal
+            Log meal
           </Button>
         </div>
         <div className="mt-4 flex flex-wrap gap-4 text-xs uppercase tracking-wide text-white/60">
@@ -414,7 +492,7 @@ export function TodayDashboard({ initialSession, initialPrediction, profileTarge
               className="w-24 rounded-md border border-white/20 bg-transparent px-3 py-2 text-sm text-white focus:border-[var(--color-primary)] focus:outline-none"
             />
             <Button onClick={submitLevelReport} disabled={!session || isPending}>
-              Save felt level
+              Save level
             </Button>
             {session?.reportedLevel != null && (
               <p className="text-xs uppercase tracking-wide text-white/60">
