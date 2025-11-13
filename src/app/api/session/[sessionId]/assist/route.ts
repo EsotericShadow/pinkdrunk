@@ -373,6 +373,19 @@ function buildSystemPrompt(
   session: NonNullable<Awaited<ReturnType<typeof getSessionById>>>,
   profile: Awaited<ReturnType<typeof getRequiredProfile>>
 ): GrokMessage {
+  const pinkScale = `PinkDrunk scale cheat sheet (word ↔ level):\n` +
+    `0 = Stone cold sober\n` +
+    `1 = Sober (baseline)\n` +
+    `2 = Buzzed / warm-up\n` +
+    `3 = Mini tipsy / edges soft\n` +
+    `4 = Tipsy / peak social\n` +
+    `5 = Drunk / classic drunk\n` +
+    `6 = PinkDrunk (target sweet spot)\n` +
+    `7 = Wasted\n` +
+    `8 = Blackout likely\n` +
+    `9 = Danger / body throws flags\n` +
+    `10 = Emergency`;
+
   const drinkList = session.drinks
     .map((drink) => `- ${drink.label ?? drink.category} · ${drink.volumeMl}ml @ ${drink.abvPercent}%`)
     .join("\n") || "- No drinks logged yet";
@@ -380,9 +393,11 @@ function buildSystemPrompt(
   const context =
     `You are PinkDrunk, a harm-reduction drinking companion. Keep replies short, friendly, and actionable.` +
     `\nCurrent target level: ${session.targetLevel}. User tolerance: ${profile.toleranceScore}/10.` +
+    `\nUse this scale mapping whenever the user describes how they feel and convert words into numeric levels:\n${pinkScale}` +
     `\nLogged drinks:\n${drinkList}` +
     `\nWhen a user describes a drink, water, snack, or how they feel, ALWAYS call the matching tool.` +
-    `\nIf details are missing, ask a brief follow-up before calling a function.`;
+    `\nIf details are missing (volume, timing, ABV, hydration, food), ask a brief follow-up before calling a function.` +
+    `\nIf they say a drink happened earlier, set consumedAt accordingly. Do not hallucinate details.`;
 
   return {
     role: "system",
