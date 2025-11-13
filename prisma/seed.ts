@@ -1,13 +1,7 @@
 import { PrismaClient, type ServingSizeType } from "@prisma/client";
 
-import {
-  BEER_CATALOG,
-  COCKTAIL_CATALOG,
-  OTHER_CATALOG,
-  SHOT_CATALOG,
-  WINE_CATALOG,
-  type DrinkCatalogEntry,
-} from "../src/lib/drink-catalog";
+import type { DrinkCatalogEntry, DrinkCategory } from "../src/lib/drink-catalog";
+import { loadDrinksByCategory } from "../src/lib/drink-catalog-loader";
 
 const prisma = new PrismaClient();
 
@@ -20,11 +14,22 @@ const uniqueByName = (entries: DrinkCatalogEntry[]) => {
   });
 };
 
-const beerEntries = uniqueByName(BEER_CATALOG);
-const wineEntries = uniqueByName(WINE_CATALOG);
-const shotEntries = uniqueByName(SHOT_CATALOG);
-const otherEntries = uniqueByName(OTHER_CATALOG);
-const cocktailEntries = uniqueByName(COCKTAIL_CATALOG);
+async function loadCatalogEntries() {
+  const categories: DrinkCategory[] = ["beer", "wine", "shot", "other", "cocktail"];
+  const entries = await Promise.all(
+    categories.map(async (category) => [category, uniqueByName(await loadDrinksByCategory(category))] as const),
+  );
+
+  const lookup = Object.fromEntries(entries) as Record<DrinkCategory, DrinkCatalogEntry[]>;
+
+  return {
+    beerEntries: lookup.beer,
+    wineEntries: lookup.wine,
+    shotEntries: lookup.shot,
+    otherEntries: lookup.other,
+    cocktailEntries: lookup.cocktail,
+  };
+}
 
 const BEER_SIZE_DEFAULTS = {
   pint: 473,
@@ -162,6 +167,8 @@ async function seedPresets() {
 
 async function main() {
   console.log("🌱 Syncing drink catalog into Prisma...");
+
+  const { beerEntries, wineEntries, shotEntries, otherEntries, cocktailEntries } = await loadCatalogEntries();
 
   for (const entry of [...beerEntries, ...wineEntries, ...shotEntries, ...otherEntries]) {
     await seedBrand(entry);
