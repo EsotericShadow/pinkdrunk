@@ -1,7 +1,9 @@
 import { mkdir, readFile, writeFile } from "fs/promises";
 import path from "path";
 
-const ALLOWED_CATEGORIES = new Set(["beer", "wine", "cocktail", "shot", "other"]);
+type DrinkCategory = "beer" | "wine" | "cocktail" | "shot" | "other";
+
+const ALLOWED_CATEGORIES = new Set<DrinkCategory>(["beer", "wine", "cocktail", "shot", "other"]);
 
 (async function main() {
   const [, , inputPath, outputRoot = "src/data/drinks"] = process.argv;
@@ -19,8 +21,8 @@ const ALLOWED_CATEGORIES = new Set(["beer", "wine", "cocktail", "shot", "other"]
 
   let imported = 0;
   for (const row of rows) {
-    const category = (row.category ?? "").toLowerCase();
-    if (!ALLOWED_CATEGORIES.has(category as any)) {
+    const category = (row.category ?? "").toLowerCase() as DrinkCategory;
+    if (!ALLOWED_CATEGORIES.has(category)) {
       console.warn(`Skipping row '${row.name}' — invalid category '${row.category}'.`);
       continue;
     }
@@ -44,7 +46,7 @@ const ALLOWED_CATEGORIES = new Set(["beer", "wine", "cocktail", "shot", "other"]
       description: row.description?.trim() || undefined,
       base: row.base?.trim() || undefined,
       tags: parseTags(row.tags),
-    } satisfies Record<string, any>;
+    } satisfies DrinkJson;
 
     const targetDir = path.join(outputRoot, category, subdir);
     await mkdir(targetDir, { recursive: true });
@@ -55,6 +57,20 @@ const ALLOWED_CATEGORIES = new Set(["beer", "wine", "cocktail", "shot", "other"]
 
   console.log(`Imported ${imported} drinks into ${outputRoot}`);
 })();
+
+type DrinkJson = {
+  id: string;
+  name: string;
+  brand?: string;
+  category: DrinkCategory;
+  type?: string;
+  style?: string;
+  abvPercent: number;
+  defaultVolumeMl: number;
+  description?: string;
+  base?: string;
+  tags: string[];
+};
 
 type CsvRow = Record<string, string> & {
   id?: string;

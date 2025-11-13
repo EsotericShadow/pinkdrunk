@@ -58,13 +58,6 @@ function formatDrinks(grams: number) {
   return (grams / STANDARD_DRINK_GRAMS).toFixed(1);
 }
 
-function formatConfidence(value: number) {
-  if (!Number.isFinite(value)) {
-    return "0%";
-  }
-  return `${Math.round(value * 100)}%`;
-}
-
 function confidenceLabel(value: number) {
   if (!Number.isFinite(value)) {
     return "Confidence 0%";

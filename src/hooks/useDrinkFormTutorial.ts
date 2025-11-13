@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const STORAGE_KEY = "pinkdrunk-tutorial-v1";
 
@@ -16,35 +16,31 @@ function isStorageAvailable() {
 }
 
 export function useDrinkFormTutorial() {
-  const [enabled, setEnabled] = useState(false);
-  const [hasSeen, setHasSeen] = useState(false);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const storageReady = isStorageAvailable();
-    if (!storageReady) {
-      setEnabled(true);
-      setHasSeen(false);
-      return;
+  const [state, setState] = useState(() => {
+    if (typeof window === "undefined" || !isStorageAvailable()) {
+      return { enabled: true, hasSeen: false };
     }
+    try {
+      const stored = window.localStorage.getItem(STORAGE_KEY);
+      const parsed = stored ? JSON.parse(stored) : { seen: false };
+      const seen = Boolean(parsed?.seen);
+      return { enabled: !seen, hasSeen: seen };
+    } catch {
+      return { enabled: true, hasSeen: false };
+    }
+  });
 
-    const stored = window.localStorage.getItem(STORAGE_KEY);
-    const parsed = stored ? JSON.parse(stored) : { seen: false };
-    setHasSeen(!!parsed?.seen);
-    setEnabled(!parsed?.seen);
-  }, []);
+  const { enabled, hasSeen } = state;
 
   const dismiss = () => {
-    setEnabled(false);
-    setHasSeen(true);
+    setState({ enabled: false, hasSeen: true });
     if (typeof window !== "undefined" && isStorageAvailable()) {
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ seen: true }));
     }
   };
 
   const reset = () => {
-    setEnabled(true);
-    setHasSeen(false);
+    setState({ enabled: true, hasSeen: false });
     if (typeof window !== "undefined" && isStorageAvailable()) {
       window.localStorage.removeItem(STORAGE_KEY);
     }

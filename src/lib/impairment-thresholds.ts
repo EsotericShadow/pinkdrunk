@@ -74,12 +74,11 @@ const EWMA_ALPHA = 0.25;
 const MIN_GRAM_GAP = 5;
 
 export async function updateThresholdsWithObservation(params: {
-  userId: string;
   thresholds: ImpairmentThreshold[];
   observationLevel: number;
   observationGrams: number;
 }) {
-  const { userId, thresholds, observationLevel, observationGrams } = params;
+  const { thresholds, observationLevel, observationGrams } = params;
   const adjusted = applyObservationToThresholds(thresholds, observationLevel, observationGrams);
   if (adjusted === thresholds) {
     return thresholds;

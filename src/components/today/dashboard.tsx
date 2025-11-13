@@ -1,10 +1,11 @@
 "use client";
 
-import { useMemo, useState, useTransition } from "react";
-import { formatDistanceToNow, parseISO } from "date-fns";
+import { useEffect, useMemo, useState, useTransition } from "react";
+import { formatDistance, parseISO } from "date-fns";
 
 import { Button } from "@/components/ui/button";
-import { getDefaultOptionForCategory } from "@/lib/drink-catalog";
+import { Input } from "@/components/ui/input";
+import { DrinkCategory, getDefaultOptionForCategory } from "@/lib/drink-catalog";
 import { InfoBanner } from "@/components/ui/info-banner";
 import { DrinkFormState, EnhancedDrinkForm } from "./enhanced-drink-form";
 import { PinkDrunkScale } from "./pinkdrunk-scale";
@@ -12,7 +13,7 @@ import { CalibrationPanel } from "./calibration-panel";
 
 type Drink = {
   id: string;
-  category: string;
+  category: DrinkCategory;
   label?: string | null;
   abvPercent: number;
   volumeMl: number;
@@ -55,12 +56,20 @@ type Props = {
   profileTargetLevel: number;
 };
 
+type EditDrinkFormState = {
+  label: string;
+  abvPercent: string;
+  volumeMl: string;
+  category: DrinkFormState["category"];
+};
+
 function normalizeSessionPayload(session: SessionPayload): SessionPayload {
   return {
     ...session,
     startedAt: new Date(session.startedAt).toISOString(),
     drinks: session.drinks.map((drink) => ({
       ...drink,
+      category: drink.category as DrinkCategory,
       consumedAt: new Date(drink.consumedAt).toISOString(),
     })),
     careEvents: session.careEvents.map((event) => ({
@@ -85,6 +94,15 @@ const buildDefaultDrinkForm = (): DrinkFormState => {
   };
 };
 
+const buildEmptyEditForm = (): EditDrinkFormState => ({
+  label: "",
+  abvPercent: "",
+  volumeMl: "",
+  category: "beer",
+});
+
+const drinkCategories: DrinkFormState["category"][] = ["beer", "wine", "cocktail", "shot", "other"];
+
 export function TodayDashboard({ initialSession, initialPrediction, profileTargetLevel }: Props) {
   const [session, setSession] = useState<SessionPayload | null>(
     initialSession ? normalizeSessionPayload(initialSession) : null
@@ -96,6 +114,14 @@ export function TodayDashboard({ initialSession, initialPrediction, profileTarge
   const [feltLevelInput, setFeltLevelInput] = useState(() =>
     (initialPrediction?.levelEstimate ?? profileTargetLevel).toFixed(1)
   );
+  const [editingDrinkId, setEditingDrinkId] = useState<string | null>(null);
+  const [editDrinkForm, setEditDrinkForm] = useState<EditDrinkFormState>(() => buildEmptyEditForm());
+  const [now, setNow] = useState(() => Date.now());
+
+  useEffect(() => {
+    const interval = window.setInterval(() => setNow(Date.now()), 30_000);
+    return () => window.clearInterval(interval);
+  }, []);
 
   const stepStates = useMemo(() => {
     const hasSession = Boolean(session);
@@ -294,6 +320,73 @@ export function TodayDashboard({ initialSession, initialPrediction, profileTarge
     submitCareEvent({ type, volumeMl: type === "snack" ? 80 : 200 });
   };
 
+  const startEditingDrink = (drink: Drink) => {
+    setErrors(null);
+    setEditingDrinkId(drink.id);
+    setEditDrinkForm({
+      label: drink.label ?? "",
+      abvPercent: drink.abvPercent.toString(),
+      volumeMl: drink.volumeMl.toString(),
+      category: drink.category,
+    });
+  };
+
+  const cancelEditingDrink = () => {
+    setEditingDrinkId(null);
+    setEditDrinkForm(buildEmptyEditForm());
+  };
+
+  const handleEditDrinkFieldChange = <K extends keyof EditDrinkFormState>(
+    field: K,
+    value: EditDrinkFormState[K]
+  ) => {
+    setEditDrinkForm((previous) => ({ ...previous, [field]: value }));
+  };
+
+  const saveEditedDrink = () => {
+    if (!session || !editingDrinkId) return;
+
+    const trimmedLabel = editDrinkForm.label.trim();
+    const abvPercent = Number(editDrinkForm.abvPercent);
+    const volumeMl = Number(editDrinkForm.volumeMl);
+
+    if (!trimmedLabel) {
+      setErrors("Give the drink a short label first.");
+      return;
+    }
+
+    if (!Number.isFinite(abvPercent) || abvPercent <= 0 || !Number.isFinite(volumeMl) || volumeMl <= 0) {
+      setErrors("Enter valid ABV and volume numbers before saving.");
+      return;
+    }
+
+    setErrors(null);
+    startTransition(async () => {
+      const response = await fetch(`/api/session/${session.id}/drinks/${editingDrinkId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          category: editDrinkForm.category,
+          label: trimmedLabel,
+          abvPercent,
+          volumeMl,
+        }),
+      });
+
+      if (!response.ok) {
+        setErrors("Could not update drink. Try again.");
+        return;
+      }
+
+      const data = (await response.json()) as { session: SessionPayload; prediction: PredictionPayload };
+      setSession(normalizeSessionPayload(data.session));
+      setPrediction(data.prediction);
+      cancelEditingDrink();
+    });
+  };
+
   const lastCareEvent = (type: CareEvent["type"] | "food") => {
     if (!session) return null;
     let matching: CareEvent[] = [];
@@ -308,6 +401,44 @@ export function TodayDashboard({ initialSession, initialPrediction, profileTarge
 
   const lastWater = lastCareEvent("water");
   const lastFood = lastCareEvent("food");
+
+  useEffect(() => {
+    if (!session?.id || editingDrinkId) {
+      return;
+    }
+
+    let cancelled = false;
+
+    const refreshSession = async () => {
+      try {
+        const response = await fetch("/api/session/current", { cache: "no-store" });
+        if (!response.ok) {
+          return;
+        }
+        const data = (await response.json()) as {
+          session: SessionPayload | null;
+          prediction: PredictionPayload | null;
+        };
+        if (cancelled) return;
+        if (data.session) {
+          setSession(normalizeSessionPayload(data.session));
+          setPrediction(data.prediction);
+        } else {
+          setSession(null);
+          setPrediction(null);
+        }
+      } catch (error) {
+        console.warn("Could not refresh session", error);
+      }
+    };
+
+    refreshSession();
+    const interval = window.setInterval(refreshSession, 60_000);
+    return () => {
+      cancelled = true;
+      window.clearInterval(interval);
+    };
+  }, [session?.id, editingDrinkId]);
 
   const endCurrentSession = (reason: "user_end" | "auto_alert" | "timeout" = "user_end") => {
     if (!session) return;
@@ -439,10 +570,10 @@ export function TodayDashboard({ initialSession, initialPrediction, profileTarge
         </div>
         <div className="mt-4 flex flex-wrap gap-4 text-xs uppercase tracking-wide text-white/60">
           <span>
-            Last water: {lastWater ? formatDistanceToNow(parseISO(lastWater.createdAt), { addSuffix: true }) : "not yet"}
+            Last water: {lastWater ? formatDistance(parseISO(lastWater.createdAt), new Date(now), { addSuffix: true }) : "not yet"}
           </span>
           <span>
-            Last food: {lastFood ? formatDistanceToNow(parseISO(lastFood.createdAt), { addSuffix: true }) : "not yet"}
+            Last food: {lastFood ? formatDistance(parseISO(lastFood.createdAt), new Date(now), { addSuffix: true }) : "not yet"}
           </span>
         </div>
       </section>
@@ -512,16 +643,100 @@ export function TodayDashboard({ initialSession, initialPrediction, profileTarge
             {session.drinks.map((drink) => (
               <li
                 key={drink.id}
-                className="flex items-center justify-between rounded-[var(--radius-sm)] bg-white/5 px-4 py-3 text-sm text-white/80"
+                className="space-y-3 rounded-[var(--radius-sm)] bg-white/5 px-4 py-3 text-sm text-white/80"
               >
-                <div>
-                  <p className="font-semibold text-white">
-                    {drink.label || drink.category}
-                  </p>
-                  <p className="text-xs text-white/60">
-                    {drink.abvPercent}% · {drink.volumeMl}ml · consumed {formatDistanceToNow(parseISO(drink.consumedAt), { addSuffix: true })}
-                  </p>
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <p className="font-semibold text-white">
+                      {drink.label || drink.category}
+                    </p>
+                    <p className="text-xs text-white/60">
+                      {drink.category} · {drink.abvPercent}% · {drink.volumeMl}ml · consumed {" "}
+                      {formatDistance(parseISO(drink.consumedAt), new Date(now), { addSuffix: true })}
+                    </p>
+                  </div>
+                  {editingDrinkId !== drink.id && (
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      className="self-start sm:self-auto"
+                      onClick={() => startEditingDrink(drink)}
+                      disabled={isPending}
+                    >
+                      Edit
+                    </Button>
+                  )}
                 </div>
+                {editingDrinkId === drink.id && (
+                  <form
+                    className="space-y-3 rounded-[var(--radius-sm)] border border-white/10 bg-black/30 p-3"
+                    onSubmit={(event) => {
+                      event.preventDefault();
+                      saveEditedDrink();
+                    }}
+                  >
+                    <div className="grid gap-3 md:grid-cols-4">
+                      <div className="md:col-span-2">
+                        <label className="text-xs uppercase tracking-wide text-white/60">Label</label>
+                        <Input
+                          value={editDrinkForm.label}
+                          onChange={(event) => handleEditDrinkFieldChange("label", event.target.value)}
+                          disabled={isPending}
+                        />
+                      </div>
+                      <div>
+                        <label className="text-xs uppercase tracking-wide text-white/60">Category</label>
+                        <select
+                          value={editDrinkForm.category}
+                          onChange={(event) =>
+                            handleEditDrinkFieldChange("category", event.target.value as DrinkFormState["category"])
+                          }
+                          disabled={isPending}
+                          className="w-full rounded-md border border-white/20 bg-transparent px-3 py-2 text-sm capitalize text-white focus:border-[var(--color-primary)] focus:outline-none"
+                        >
+                          {drinkCategories.map((category) => (
+                            <option key={category} value={category} className="bg-[#0f0f0f] text-white">
+                              {category}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                      <div>
+                        <label className="text-xs uppercase tracking-wide text-white/60">ABV %</label>
+                        <Input
+                          type="number"
+                          min="0.1"
+                          max="96"
+                          step="0.1"
+                          value={editDrinkForm.abvPercent}
+                          onChange={(event) => handleEditDrinkFieldChange("abvPercent", event.target.value)}
+                          disabled={isPending}
+                        />
+                      </div>
+                      <div>
+                        <label className="text-xs uppercase tracking-wide text-white/60">Volume (ml)</label>
+                        <Input
+                          type="number"
+                          min="10"
+                          max="2000"
+                          step="10"
+                          value={editDrinkForm.volumeMl}
+                          onChange={(event) => handleEditDrinkFieldChange("volumeMl", event.target.value)}
+                          disabled={isPending}
+                        />
+                      </div>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      <Button type="button" variant="secondary" onClick={cancelEditingDrink} disabled={isPending}>
+                        Cancel
+                      </Button>
+                      <Button type="submit" disabled={isPending}>
+                        Save changes
+                      </Button>
+                    </div>
+                  </form>
+                )}
               </li>
             ))}
           </ul>

@@ -61,6 +61,23 @@ export async function appendDrink(sessionId: string, drink: {
   });
 }
 
+export async function updateDrink(drinkId: string, updates: {
+  category?: DrinkCategory;
+  label?: string | null;
+  abvPercent?: number;
+  volumeMl?: number;
+  brandId?: string | null;
+  presetId?: string | null;
+  mixedDrinkId?: string | null;
+  consumedAt?: Date;
+  ingestionMins?: number;
+}) {
+  return db.drink.update({
+    where: { id: drinkId },
+    data: updates,
+  });
+}
+
 export async function appendCareEvent(sessionId: string, event: {
   type: CareEventType;
   volumeMl?: number | null;

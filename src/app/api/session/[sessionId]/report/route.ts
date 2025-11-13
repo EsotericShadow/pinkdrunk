@@ -47,7 +47,6 @@ export async function POST(
   await recordReportedLevel(sessionRecord.id, parsed.data.level);
 
   thresholds = await updateThresholdsWithObservation({
-    userId: session.user.id,
     thresholds,
     observationLevel: parsed.data.level,
     observationGrams: prediction.absorbedAlcoholGrams,

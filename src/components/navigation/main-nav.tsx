@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { LogoutButton } from "@/components/navigation/logout-button";
 
@@ -19,10 +19,7 @@ export function MainNav() {
   const { status } = useSession();
   const isAuthenticated = status === "authenticated";
   const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    setMenuOpen(false);
-  }, [pathname]);
+  const closeMenu = () => setMenuOpen(false);
 
   const linkStyles = (active: boolean) =>
     `rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] transition ${
@@ -30,26 +27,6 @@ export function MainNav() {
         ? "bg-[var(--color-primary)] text-[var(--color-background)] shadow-[var(--shadow-hard)]"
         : "text-muted hover:text-[var(--color-foreground)]"
     }`;
-
-  const authAction = isAuthenticated ? (
-    <LogoutButton />
-  ) : (
-    <Link
-      href="/signin"
-      className="rounded-full border border-white/15 px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-muted hover:text-[var(--color-foreground)]"
-    >
-      Sign in
-    </Link>
-  );
-
-  const startTonightCta = (
-    <Link
-      href="/today"
-      className="rounded-full bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-background)] shadow-[var(--shadow-hard)] transition hover:scale-[1.02]"
-    >
-      Start
-    </Link>
-  );
 
   return (
     <nav className="relative text-sm">
@@ -62,8 +39,22 @@ export function MainNav() {
             </Link>
           );
         })}
-        {startTonightCta}
-        {authAction}
+        <Link
+          href="/today"
+          className="rounded-full bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-background)] shadow-[var(--shadow-hard)] transition hover:scale-[1.02]"
+        >
+          Start
+        </Link>
+        {isAuthenticated ? (
+          <LogoutButton />
+        ) : (
+          <Link
+            href="/signin"
+            className="rounded-full border border-white/15 px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-muted hover:text-[var(--color-foreground)]"
+          >
+            Sign in
+          </Link>
+        )}
       </div>
 
       <div className="flex items-center md:hidden">
@@ -97,13 +88,34 @@ export function MainNav() {
                     key={link.href}
                     href={link.href}
                     className={`${linkStyles(active)} w-full text-center`}
+                    onClick={closeMenu}
                   >
                     {link.label}
                   </Link>
                 );
               })}
-              <div className="pt-1">{startTonightCta}</div>
-              <div className="pt-2">{authAction}</div>
+              <div className="pt-1">
+                <Link
+                  href="/today"
+                  onClick={closeMenu}
+                  className="block rounded-full bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] px-4 py-2 text-center text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-background)] shadow-[var(--shadow-hard)] transition hover:scale-[1.02]"
+                >
+                  Start
+                </Link>
+              </div>
+              <div className="pt-2" onClick={isAuthenticated ? closeMenu : undefined}>
+                {isAuthenticated ? (
+                  <LogoutButton />
+                ) : (
+                  <Link
+                    href="/signin"
+                    onClick={closeMenu}
+                    className="block rounded-full border border-white/15 px-4 py-2 text-center text-xs font-semibold uppercase tracking-[0.25em] text-muted hover:text-[var(--color-foreground)]"
+                  >
+                    Sign in
+                  </Link>
+                )}
+              </div>
             </div>
           </div>
         )}

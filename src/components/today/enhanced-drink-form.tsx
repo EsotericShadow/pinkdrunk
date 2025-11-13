@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -30,11 +30,23 @@ type Props = {
 const categories: DrinkCategory[] = ["beer", "wine", "cocktail", "shot", "other"];
 const RECENTS_KEY = "pinkdrunk-recents";
 
+function loadStoredRecents(): DrinkCatalogEntry[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const stored = window.localStorage.getItem(RECENTS_KEY);
+    if (!stored) return [];
+    return JSON.parse(stored) as DrinkCatalogEntry[];
+  } catch (error) {
+    console.warn("Could not load recents", error);
+    return [];
+  }
+}
+
 export function EnhancedDrinkForm({ drinkForm, onChange, onSubmit, disabled, isPending }: Props) {
   const [popularFilter, setPopularFilter] = useState("");
   const [globalSearch, setGlobalSearch] = useState("");
   const [activeSection, setActiveSection] = useState<"recents" | "popular" | "all" | "custom">("popular");
-  const [recents, setRecents] = useState<DrinkCatalogEntry[]>([]);
+  const [recents, setRecents] = useState<DrinkCatalogEntry[]>(() => loadStoredRecents());
 
   const globalEnabled = globalSearch.trim().length >= 2;
   const { data: allEntries = [], isLoading: isAllLoading } = useDrinkCatalog("all", undefined);
@@ -45,19 +57,6 @@ export function EnhancedDrinkForm({ drinkForm, onChange, onSubmit, disabled, isP
   const allPreview = useMemo(() => allEntries.slice(0, 30), [allEntries]);
   const showAllPreview = globalSearch.trim().length === 0;
   const tutorial = useDrinkFormTutorial();
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    try {
-      const stored = window.localStorage.getItem(RECENTS_KEY);
-      if (stored) {
-        const parsed = JSON.parse(stored) as DrinkCatalogEntry[];
-        setRecents(parsed);
-      }
-    } catch (error) {
-      console.warn("Could not load recents", error);
-    }
-  }, []);
 
   const popularEntries = useMemo(() => {
     if (allEntries.length === 0) return [];

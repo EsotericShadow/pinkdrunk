@@ -61,7 +61,7 @@ async function collectJsonFiles(dir: string): Promise<string[]> {
 async function safeReadDir(dir: string) {
   try {
     return await fs.readdir(dir, { withFileTypes: true });
-  } catch (error) {
+  } catch {
     return [];
   }
 }
