@@ -200,7 +200,7 @@ export function EnhancedDrinkForm({ drinkForm, onChange, onSubmit, disabled, isP
       </div>
 
       {activeSection === "all" && (
-        <div className="space-y-3 rounded-[var(--radius-md)] border border-white/10 bg-white/5 p-4">
+        <div className="space-y-3 rounded-[var(--radius-md)] border border-white/10 bg-white/5 p-4 sm:p-5">
           <div className="flex flex-col gap-1">
             <span className="text-xs uppercase tracking-[0.35em] text-muted">Search all drinks</span>
             <Input
@@ -217,7 +217,7 @@ export function EnhancedDrinkForm({ drinkForm, onChange, onSubmit, disabled, isP
                   <button
                     key={`${option.category}-${option.id}`}
                     type="button"
-                    className="w-full rounded-[var(--radius-sm)] border border-white/10 bg-white/5 px-3 py-2 text-left text-sm text-muted transition hover:border-white/40"
+                    className="w-full rounded-[var(--radius-md)] border border-white/10 bg-white/5 px-4 py-3 text-left text-sm text-muted transition hover:border-white/40"
                     onClick={() => handleOptionSelect(option)}
                   >
                     <div className="flex items-center justify-between gap-3">
@@ -243,7 +243,7 @@ export function EnhancedDrinkForm({ drinkForm, onChange, onSubmit, disabled, isP
                   <button
                     key={`${option.category}-${option.id}`}
                     type="button"
-                    className="w-full rounded-[var(--radius-sm)] border border-white/10 bg-white/5 px-3 py-2 text-left text-sm text-muted transition hover:border-white/40"
+                    className="w-full rounded-[var(--radius-md)] border border-white/10 bg-white/5 px-4 py-3 text-left text-sm text-muted transition hover:border-white/40"
                     onClick={() => handleOptionSelect(option)}
                   >
                     <div className="flex items-center justify-between gap-3">
@@ -282,7 +282,7 @@ export function EnhancedDrinkForm({ drinkForm, onChange, onSubmit, disabled, isP
                 <button
                   key={`${option.category}-${option.id}`}
                   type="button"
-                  className={`w-full rounded-[var(--radius-md)] border px-3 py-2 text-left transition ${
+                  className={`w-full rounded-[var(--radius-lg)] border px-4 py-3 text-left transition ${
                     drinkForm.optionId === option.id
                       ? "border-[var(--color-primary)] bg-[var(--color-primary)]/10"
                       : "border-white/10 bg-white/5 hover:border-white/30"
@@ -316,7 +316,7 @@ export function EnhancedDrinkForm({ drinkForm, onChange, onSubmit, disabled, isP
                 <button
                   key={`${option.category}-${option.id}`}
                   type="button"
-                  className="w-full rounded-[var(--radius-md)] border border-white/15 bg-white/5 px-3 py-2 text-left transition hover:border-white/40"
+                  className="w-full rounded-[var(--radius-lg)] border border-white/15 bg-white/5 px-4 py-3 text-left transition hover:border-white/40"
                   onClick={() => handleOptionSelect(option)}
                 >
                   <div className="flex items-center justify-between gap-3">
