@@ -1,0 +1,13 @@
+{
+  "id": "lagunitas-ipa",
+  "name": "Lagunitas IPA",
+  "brand": "Lagunitas",
+  "category": "beer",
+  "type": "ipa",
+  "style": "West Coast IPA",
+  "abvPercent": 6.2,
+  "defaultVolumeMl": 355,
+  "description": "Piney, citrusy IPA with a crisp finish.",
+  "base": "barley",
+  "tags": ["ipa", "hoppy"]
+}

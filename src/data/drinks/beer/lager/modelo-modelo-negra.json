@@ -1,0 +1,16 @@
+{
+  "id": "modelo-modelo-negra",
+  "name": "Modelo Negra",
+  "brand": "Modelo",
+  "category": "beer",
+  "type": "munich-dunkel",
+  "style": "Dark Lager",
+  "abvPercent": 5.4,
+  "defaultVolumeMl": 355,
+  "description": "Toasty dark lager.",
+  "base": "barley",
+  "tags": [
+    "lager",
+    "dark"
+  ]
+}

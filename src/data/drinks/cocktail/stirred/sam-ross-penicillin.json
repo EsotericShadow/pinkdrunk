@@ -1,0 +1,16 @@
+{
+  "id": "sam-ross-penicillin",
+  "name": "Penicillin",
+  "brand": "Sam Ross",
+  "category": "cocktail",
+  "type": "whiskey",
+  "style": "Modern Whisky",
+  "abvPercent": 23,
+  "defaultVolumeMl": 120,
+  "description": "Smoky scotch + ginger.",
+  "base": "scotch",
+  "tags": [
+    "whisky",
+    "smoky"
+  ]
+}

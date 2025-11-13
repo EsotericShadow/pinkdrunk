@@ -1,0 +1,16 @@
+{
+  "id": "athletic-brewing-athletic-run-wild",
+  "name": "Athletic Run Wild",
+  "brand": "Athletic Brewing",
+  "category": "beer",
+  "type": "non-alc-ipa",
+  "style": "NA IPA",
+  "abvPercent": 0.5,
+  "defaultVolumeMl": 355,
+  "description": "Flagship NA IPA.",
+  "base": "barley",
+  "tags": [
+    "na",
+    "ipa"
+  ]
+}

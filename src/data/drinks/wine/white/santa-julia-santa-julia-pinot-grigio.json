@@ -1,0 +1,16 @@
+{
+  "id": "santa-julia-santa-julia-pinot-grigio",
+  "name": "Santa Julia Pinot Grigio",
+  "brand": "Santa Julia",
+  "category": "wine",
+  "type": "pinot-grigio",
+  "style": "Pinot Grigio",
+  "abvPercent": 12.5,
+  "defaultVolumeMl": 150,
+  "description": "Argentinian pinot grigio.",
+  "base": "grapes",
+  "tags": [
+    "pinot",
+    "argentina"
+  ]
+}

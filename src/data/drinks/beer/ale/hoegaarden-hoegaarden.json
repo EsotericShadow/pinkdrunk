@@ -1,0 +1,16 @@
+{
+  "id": "hoegaarden-hoegaarden",
+  "name": "Hoegaarden",
+  "brand": "Hoegaarden",
+  "category": "beer",
+  "type": "witbier",
+  "style": "Belgian Wit",
+  "abvPercent": 4.9,
+  "defaultVolumeMl": 355,
+  "description": "Coriander + orange peel wit.",
+  "base": "barley",
+  "tags": [
+    "ale",
+    "wit"
+  ]
+}

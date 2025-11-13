@@ -1,0 +1,16 @@
+{
+  "id": "iba-tom-collins",
+  "name": "Tom Collins",
+  "brand": "IBA",
+  "category": "cocktail",
+  "type": "collins",
+  "style": "Classic Highball",
+  "abvPercent": 15,
+  "defaultVolumeMl": 240,
+  "description": "Gin, lemon, soda.",
+  "base": "gin",
+  "tags": [
+    "highball",
+    "sour"
+  ]
+}

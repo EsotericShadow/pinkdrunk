@@ -1,0 +1,16 @@
+{
+  "id": "mike-s-mike-s-hard-lemonade",
+  "name": "Mike's Hard Lemonade",
+  "brand": "Mike's",
+  "category": "other",
+  "type": "malt-beverage",
+  "style": "Malt Cooler",
+  "abvPercent": 5,
+  "defaultVolumeMl": 355,
+  "description": "Lemon malt cooler.",
+  "base": "malt",
+  "tags": [
+    "cooler",
+    "lemon"
+  ]
+}

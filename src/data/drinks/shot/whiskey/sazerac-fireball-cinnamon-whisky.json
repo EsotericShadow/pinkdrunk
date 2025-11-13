@@ -1,0 +1,16 @@
+{
+  "id": "sazerac-fireball-cinnamon-whisky",
+  "name": "Fireball Cinnamon Whisky",
+  "brand": "Sazerac",
+  "category": "shot",
+  "type": "flavored",
+  "style": "Cinnamon Whisky",
+  "abvPercent": 33,
+  "defaultVolumeMl": 44,
+  "description": "Cinnamon whisky shooter.",
+  "base": "corn",
+  "tags": [
+    "flavored",
+    "whiskey"
+  ]
+}

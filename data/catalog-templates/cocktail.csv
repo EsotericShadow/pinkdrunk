@@ -1,0 +1,4 @@
+name,category,subcategory,type,style,abvPercent,defaultVolumeMl,description,brand,base,tags
+Negroni,cocktail,classics,spirit-forward,IBA Classic,24,90,"Gin, Campari, sweet vermouth.",IBA,gin,"classic;bitter"
+Margarita,cocktail,shaken,sour,IBA Classic,22,120,"Tequila, triple sec, lime.",IBA,tequila,"sour;lime"
+Aperol Spritz,cocktail,spritz,sparkling,Venetian,11,240,"Aperol + prosecco highball.",Campari,aperitif,"spritz;brunch"

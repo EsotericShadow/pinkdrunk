@@ -1,0 +1,16 @@
+{
+  "id": "lo-fi-paloma-spritz-lo-fi",
+  "name": "Paloma Spritz Lo-Fi",
+  "brand": "Lo-Fi",
+  "category": "cocktail",
+  "type": "spritz",
+  "style": "Low ABV Spritz",
+  "abvPercent": 6,
+  "defaultVolumeMl": 240,
+  "description": "Lo-fi agave spritz.",
+  "base": "agave",
+  "tags": [
+    "spritz",
+    "low-abv"
+  ]
+}

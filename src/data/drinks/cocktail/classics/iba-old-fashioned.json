@@ -1,0 +1,16 @@
+{
+  "id": "iba-old-fashioned",
+  "name": "Old Fashioned",
+  "brand": "IBA",
+  "category": "cocktail",
+  "type": "spirit-forward",
+  "style": "IBA Classic",
+  "abvPercent": 32,
+  "defaultVolumeMl": 90,
+  "description": "Bourbon, bitters, sugar.",
+  "base": "whiskey",
+  "tags": [
+    "classic",
+    "stirred"
+  ]
+}

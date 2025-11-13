@@ -1,0 +1,16 @@
+{
+  "id": "campo-viejo-rioja-reserva",
+  "name": "Rioja Reserva",
+  "brand": "Campo Viejo",
+  "category": "wine",
+  "type": "tempranillo",
+  "style": "Tempranillo",
+  "abvPercent": 14,
+  "defaultVolumeMl": 150,
+  "description": "Oaked Spanish tempranillo.",
+  "base": "grapes",
+  "tags": [
+    "red",
+    "spain"
+  ]
+}

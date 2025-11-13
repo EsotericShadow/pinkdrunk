@@ -1,0 +1,16 @@
+{
+  "id": "napa-cellars-napa-cabernet-sauvignon",
+  "name": "Napa Cabernet Sauvignon",
+  "brand": "Napa Cellars",
+  "category": "wine",
+  "type": "cabernet",
+  "style": "Cabernet Sauvignon",
+  "abvPercent": 14,
+  "defaultVolumeMl": 150,
+  "description": "Full-bodied cab with dark fruit.",
+  "base": "grapes",
+  "tags": [
+    "red",
+    "cabernet"
+  ]
+}

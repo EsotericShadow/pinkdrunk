@@ -1,0 +1,16 @@
+{
+  "id": "santa-margherita-pinot-grigio-veneto",
+  "name": "Pinot Grigio (Veneto)",
+  "brand": "Santa Margherita",
+  "category": "wine",
+  "type": "pinot-grigio",
+  "style": "Pinot Grigio",
+  "abvPercent": 12,
+  "defaultVolumeMl": 150,
+  "description": "Crisp pear + citrus.",
+  "base": "grapes",
+  "tags": [
+    "pinot-grigio",
+    "italy"
+  ]
+}

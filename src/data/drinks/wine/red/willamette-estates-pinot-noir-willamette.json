@@ -1,0 +1,16 @@
+{
+  "id": "willamette-estates-pinot-noir-willamette",
+  "name": "Pinot Noir (Willamette)",
+  "brand": "Willamette Estates",
+  "category": "wine",
+  "type": "pinot-noir",
+  "style": "Pinot Noir",
+  "abvPercent": 13.2,
+  "defaultVolumeMl": 150,
+  "description": "Silky pinot with cherry + mushroom.",
+  "base": "grapes",
+  "tags": [
+    "pinot",
+    "oregon"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "iba-paloma",
+  "name": "Paloma",
+  "brand": "IBA",
+  "category": "cocktail",
+  "type": "grapefruit",
+  "style": "Highball",
+  "abvPercent": 12,
+  "defaultVolumeMl": 300,
+  "description": "Tequila + grapefruit soda.",
+  "base": "tequila",
+  "tags": [
+    "highball",
+    "tequila"
+  ]
+}

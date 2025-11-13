@@ -1,0 +1,16 @@
+{
+  "id": "brancott-brancott-estate-pinot-noir",
+  "name": "Brancott Estate Pinot Noir",
+  "brand": "Brancott",
+  "category": "wine",
+  "type": "pinot-noir",
+  "style": "Pinot Noir",
+  "abvPercent": 13,
+  "defaultVolumeMl": 150,
+  "description": "NZ pinot noir.",
+  "base": "grapes",
+  "tags": [
+    "pinot",
+    "nz"
+  ]
+}

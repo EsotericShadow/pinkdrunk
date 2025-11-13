@@ -1,0 +1,13 @@
+{
+  "id": "grey-goose",
+  "name": "Grey Goose Vodka",
+  "brand": "Bacardi",
+  "category": "shot",
+  "type": "vodka",
+  "style": "French Vodka",
+  "abvPercent": 40,
+  "defaultVolumeMl": 44,
+  "description": "Soft winter wheat vodka, ideal for martinis.",
+  "base": "wheat",
+  "tags": ["vodka", "premium"]
+}

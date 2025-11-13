@@ -1,0 +1,16 @@
+{
+  "id": "cutwater-cutwater-lime-margarita",
+  "name": "Cutwater Lime Margarita",
+  "brand": "Cutwater",
+  "category": "other",
+  "type": "spirit-can",
+  "style": "Margarita RTD",
+  "abvPercent": 12.5,
+  "defaultVolumeMl": 355,
+  "description": "100% agave marg.",
+  "base": "tequila",
+  "tags": [
+    "rtd",
+    "marg"
+  ]
+}

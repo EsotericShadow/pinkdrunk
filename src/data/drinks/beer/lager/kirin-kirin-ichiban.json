@@ -1,0 +1,16 @@
+{
+  "id": "kirin-kirin-ichiban",
+  "name": "Kirin Ichiban",
+  "brand": "Kirin",
+  "category": "beer",
+  "type": "japanese-lager",
+  "style": "First Press Lager",
+  "abvPercent": 5,
+  "defaultVolumeMl": 350,
+  "description": "All-malt Japanese lager.",
+  "base": "barley",
+  "tags": [
+    "lager",
+    "japan"
+  ]
+}

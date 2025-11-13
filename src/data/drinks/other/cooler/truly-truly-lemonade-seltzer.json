@@ -1,0 +1,16 @@
+{
+  "id": "truly-truly-lemonade-seltzer",
+  "name": "Truly Lemonade Seltzer",
+  "brand": "Truly",
+  "category": "other",
+  "type": "seltzer",
+  "style": "Hard Seltzer",
+  "abvPercent": 5,
+  "defaultVolumeMl": 355,
+  "description": "Lemonade hard seltzer.",
+  "base": "fermented sugar",
+  "tags": [
+    "seltzer",
+    "lemonade"
+  ]
+}

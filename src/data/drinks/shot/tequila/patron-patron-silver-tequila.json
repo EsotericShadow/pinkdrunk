@@ -1,0 +1,16 @@
+{
+  "id": "patron-patron-silver-tequila",
+  "name": "Patron Silver Tequila",
+  "brand": "Patron",
+  "category": "shot",
+  "type": "blanco",
+  "style": "Blanco Tequila",
+  "abvPercent": 40,
+  "defaultVolumeMl": 44,
+  "description": "Citrus and pepper tequila.",
+  "base": "agave",
+  "tags": [
+    "tequila",
+    "premium"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "goslings-dark-and-stormy",
+  "name": "Dark and Stormy",
+  "brand": "Goslings",
+  "category": "cocktail",
+  "type": "mule",
+  "style": "Mule",
+  "abvPercent": 14,
+  "defaultVolumeMl": 300,
+  "description": "Dark rum + ginger beer.",
+  "base": "rum",
+  "tags": [
+    "mule",
+    "ginger"
+  ]
+}

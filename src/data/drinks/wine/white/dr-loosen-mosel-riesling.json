@@ -1,0 +1,16 @@
+{
+  "id": "dr-loosen-mosel-riesling",
+  "name": "Mosel Riesling",
+  "brand": "Dr. Loosen",
+  "category": "wine",
+  "type": "riesling",
+  "style": "Riesling",
+  "abvPercent": 12,
+  "defaultVolumeMl": 150,
+  "description": "Off-dry with stone fruit.",
+  "base": "grapes",
+  "tags": [
+    "white",
+    "riesling"
+  ]
+}

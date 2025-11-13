@@ -1,0 +1,13 @@
+{
+  "id": "jameson",
+  "name": "Jameson Irish Whiskey",
+  "brand": "Jameson",
+  "category": "shot",
+  "type": "whiskey",
+  "style": "Irish Whiskey",
+  "abvPercent": 40,
+  "defaultVolumeMl": 44,
+  "description": "Triple-distilled Irish whiskey with vanilla notes.",
+  "base": "barley",
+  "tags": ["whiskey", "irish"]
+}

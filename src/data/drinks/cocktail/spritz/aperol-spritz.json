@@ -1,0 +1,13 @@
+{
+  "id": "aperol-spritz",
+  "name": "Aperol Spritz",
+  "brand": "Venetian",
+  "category": "cocktail",
+  "type": "spritz",
+  "style": "Sparkling",
+  "abvPercent": 11,
+  "defaultVolumeMl": 240,
+  "description": "Aperol, prosecco, and soda over ice.",
+  "base": "aperitif",
+  "tags": ["spritz", "brunch"]
+}

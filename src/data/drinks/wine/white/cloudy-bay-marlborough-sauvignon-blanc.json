@@ -1,0 +1,16 @@
+{
+  "id": "cloudy-bay-marlborough-sauvignon-blanc",
+  "name": "Marlborough Sauvignon Blanc",
+  "brand": "Cloudy Bay",
+  "category": "wine",
+  "type": "sauvignon",
+  "style": "Sauvignon Blanc",
+  "abvPercent": 13,
+  "defaultVolumeMl": 150,
+  "description": "Crisp citrus + tropical notes.",
+  "base": "grapes",
+  "tags": [
+    "white",
+    "sauvignon"
+  ]
+}

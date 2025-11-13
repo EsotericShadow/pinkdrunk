@@ -1,0 +1,16 @@
+{
+  "id": "anheuser-busch-budweiser",
+  "name": "Budweiser",
+  "brand": "Anheuser-Busch",
+  "category": "beer",
+  "type": "american-lager",
+  "style": "American Lager",
+  "abvPercent": 5,
+  "defaultVolumeMl": 355,
+  "description": "Classic macro lager.",
+  "base": "barley",
+  "tags": [
+    "lager",
+    "macro"
+  ]
+}

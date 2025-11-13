@@ -1,0 +1,16 @@
+{
+  "id": "cutwater-cutwater-tequila-paloma",
+  "name": "Cutwater Tequila Paloma",
+  "brand": "Cutwater",
+  "category": "other",
+  "type": "spirit-can",
+  "style": "Paloma RTD",
+  "abvPercent": 7,
+  "defaultVolumeMl": 355,
+  "description": "Grapefruit paloma.",
+  "base": "tequila",
+  "tags": [
+    "rtd",
+    "paloma"
+  ]
+}

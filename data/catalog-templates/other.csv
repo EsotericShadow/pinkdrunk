@@ -1,0 +1,4 @@
+name,category,subcategory,type,style,abvPercent,defaultVolumeMl,description,brand,base,tags
+Truly Lemonade Seltzer,other,cooler,seltzer,Hard Seltzer,5,355,"Lemonade hard seltzer.",Truly,fermented sugar,"seltzer;lemonade"
+High Noon Pineapple,other,cooler,spirit-based,Spirit-based Seltzer,4.5,355,"Vodka soda with pineapple.",High Noon,vodka,"seltzer;pineapple"
+White Claw Black Cherry,other,cooler,seltzer,Hard Seltzer,5,355,"Cherry hard seltzer.",White Claw,fermented sugar,"seltzer;cherry"

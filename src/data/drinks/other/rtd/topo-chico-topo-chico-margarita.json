@@ -1,0 +1,16 @@
+{
+  "id": "topo-chico-topo-chico-margarita",
+  "name": "Topo Chico Margarita",
+  "brand": "Topo Chico",
+  "category": "other",
+  "type": "spirit-can",
+  "style": "Marga-rita RTD",
+  "abvPercent": 10,
+  "defaultVolumeMl": 355,
+  "description": "Sparkling marg in a can.",
+  "base": "tequila",
+  "tags": [
+    "rtd",
+    "margarita"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "mott-s-bloody-caesar",
+  "name": "Bloody Caesar",
+  "brand": "Mott's",
+  "category": "cocktail",
+  "type": "bloody",
+  "style": "Bloody Mary variant",
+  "abvPercent": 12,
+  "defaultVolumeMl": 300,
+  "description": "Clamato Bloody Mary.",
+  "base": "vodka",
+  "tags": [
+    "brunch",
+    "ceasar"
+  ]
+}

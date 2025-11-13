@@ -1,0 +1,16 @@
+{
+  "id": "iba-pink-lady",
+  "name": "Pink Lady",
+  "brand": "IBA",
+  "category": "cocktail",
+  "type": "sour",
+  "style": "Classic Sour",
+  "abvPercent": 18,
+  "defaultVolumeMl": 120,
+  "description": "Gin + applejack sour.",
+  "base": "gin",
+  "tags": [
+    "sour",
+    "classic"
+  ]
+}

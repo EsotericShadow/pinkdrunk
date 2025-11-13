@@ -1,0 +1,16 @@
+{
+  "id": "sierra-nevada-sierra-nevada-pale-ale",
+  "name": "Sierra Nevada Pale Ale",
+  "brand": "Sierra Nevada",
+  "category": "beer",
+  "type": "pale-ale",
+  "style": "American Pale Ale",
+  "abvPercent": 5.6,
+  "defaultVolumeMl": 355,
+  "description": "Pine + citrus APA.",
+  "base": "barley",
+  "tags": [
+    "ale",
+    "craft"
+  ]
+}

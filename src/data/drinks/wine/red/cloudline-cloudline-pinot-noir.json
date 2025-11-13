@@ -1,0 +1,16 @@
+{
+  "id": "cloudline-cloudline-pinot-noir",
+  "name": "Cloudline Pinot Noir",
+  "brand": "Cloudline",
+  "category": "wine",
+  "type": "pinot-noir",
+  "style": "Pinot Noir",
+  "abvPercent": 13.5,
+  "defaultVolumeMl": 150,
+  "description": "Oregon pinot noir.",
+  "base": "grapes",
+  "tags": [
+    "pinot",
+    "oregon"
+  ]
+}

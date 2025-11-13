@@ -1,0 +1,16 @@
+{
+  "id": "grey-goose-grey-goose-vodka",
+  "name": "Grey Goose Vodka",
+  "brand": "Grey Goose",
+  "category": "shot",
+  "type": "french",
+  "style": "French Vodka",
+  "abvPercent": 40,
+  "defaultVolumeMl": 44,
+  "description": "Soft winter wheat vodka.",
+  "base": "wheat",
+  "tags": [
+    "vodka",
+    "premium"
+  ]
+}

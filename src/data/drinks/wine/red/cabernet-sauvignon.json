@@ -1,0 +1,13 @@
+{
+  "id": "cabernet-sauvignon",
+  "name": "Cabernet Sauvignon",
+  "brand": "Napa Cellars",
+  "category": "wine",
+  "type": "red",
+  "style": "Cabernet Sauvignon",
+  "abvPercent": 14,
+  "defaultVolumeMl": 150,
+  "description": "Full-bodied red with dark fruit and oak notes.",
+  "base": "grapes",
+  "tags": ["red", "cabernet", "napa"]
+}

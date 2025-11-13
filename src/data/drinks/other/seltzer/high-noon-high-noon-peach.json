@@ -1,0 +1,16 @@
+{
+  "id": "high-noon-high-noon-peach",
+  "name": "High Noon Peach",
+  "brand": "High Noon",
+  "category": "other",
+  "type": "spirit-based",
+  "style": "Spirit-based Seltzer",
+  "abvPercent": 4.5,
+  "defaultVolumeMl": 355,
+  "description": "Peach vodka soda.",
+  "base": "vodka",
+  "tags": [
+    "seltzer",
+    "peach"
+  ]
+}

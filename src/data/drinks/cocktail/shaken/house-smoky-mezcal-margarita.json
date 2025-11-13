@@ -1,0 +1,16 @@
+{
+  "id": "house-smoky-mezcal-margarita",
+  "name": "Smoky Mezcal Margarita",
+  "brand": "House",
+  "category": "cocktail",
+  "type": "margarita",
+  "style": "Smoky Margarita",
+  "abvPercent": 23,
+  "defaultVolumeMl": 120,
+  "description": "Mezcal twist on the classic.",
+  "base": "mezcal",
+  "tags": [
+    "mezcal",
+    "margarita"
+  ]
+}

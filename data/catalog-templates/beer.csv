@@ -1,0 +1,4 @@
+name,category,subcategory,type,style,abvPercent,defaultVolumeMl,description,brand,base,tags
+Budweiser,beer,lager,american-lager,American Lager,5,355,"Classic macro lager.",Anheuser-Busch,barley,"lager;macro"
+Sierra Nevada Pale Ale,beer,ale,pale-ale,American Pale Ale,5.6,355,"Pine + citrus APA.",Sierra Nevada,barley,"ale;craft"
+Guinness Draught,beer,stout,irish-dry,Irish Dry Stout,4.2,440,"Nitrogenated stout.",Guinness,barley,"stout;nitro"

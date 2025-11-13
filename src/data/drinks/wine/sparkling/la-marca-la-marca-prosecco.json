@@ -1,0 +1,16 @@
+{
+  "id": "la-marca-la-marca-prosecco",
+  "name": "La Marca Prosecco",
+  "brand": "La Marca",
+  "category": "wine",
+  "type": "prosecco",
+  "style": "Prosecco",
+  "abvPercent": 11,
+  "defaultVolumeMl": 150,
+  "description": "Sparkling prosecco.",
+  "base": "grapes",
+  "tags": [
+    "prosecco",
+    "sparkling"
+  ]
+}

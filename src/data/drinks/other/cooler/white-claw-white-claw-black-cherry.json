@@ -1,0 +1,16 @@
+{
+  "id": "white-claw-white-claw-black-cherry",
+  "name": "White Claw Black Cherry",
+  "brand": "White Claw",
+  "category": "other",
+  "type": "seltzer",
+  "style": "Hard Seltzer",
+  "abvPercent": 5,
+  "defaultVolumeMl": 355,
+  "description": "Cherry hard seltzer.",
+  "base": "fermented sugar",
+  "tags": [
+    "seltzer",
+    "cherry"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "hennessy-hennessy-vs-cognac",
+  "name": "Hennessy VS Cognac",
+  "brand": "Hennessy",
+  "category": "shot",
+  "type": "cognac",
+  "style": "Cognac",
+  "abvPercent": 40,
+  "defaultVolumeMl": 44,
+  "description": "Popular cognac for shots.",
+  "base": "grapes",
+  "tags": [
+    "brandy",
+    "cognac"
+  ]
+}

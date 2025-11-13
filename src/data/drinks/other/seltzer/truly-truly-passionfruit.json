@@ -1,0 +1,16 @@
+{
+  "id": "truly-truly-passionfruit",
+  "name": "Truly Passionfruit",
+  "brand": "Truly",
+  "category": "other",
+  "type": "hard-seltzer",
+  "style": "Hard Seltzer",
+  "abvPercent": 5,
+  "defaultVolumeMl": 355,
+  "description": "Passionfruit seltzer.",
+  "base": "fermented sugar",
+  "tags": [
+    "seltzer",
+    "passionfruit"
+  ]
+}

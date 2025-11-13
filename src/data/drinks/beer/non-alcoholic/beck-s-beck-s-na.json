@@ -1,0 +1,16 @@
+{
+  "id": "beck-s-beck-s-na",
+  "name": "Beck's NA",
+  "brand": "Beck's",
+  "category": "beer",
+  "type": "non-alc-lager",
+  "style": "NA Lager",
+  "abvPercent": 0.3,
+  "defaultVolumeMl": 330,
+  "description": "Crisp non-alc lager.",
+  "base": "barley",
+  "tags": [
+    "lager",
+    "na"
+  ]
+}

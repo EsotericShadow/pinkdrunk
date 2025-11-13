@@ -1,0 +1,16 @@
+{
+  "id": "heineken-heineken-original",
+  "name": "Heineken Original",
+  "brand": "Heineken",
+  "category": "beer",
+  "type": "euro-lager",
+  "style": "Euro Pale Lager",
+  "abvPercent": 5,
+  "defaultVolumeMl": 330,
+  "description": "Dutch pale lager.",
+  "base": "barley",
+  "tags": [
+    "lager",
+    "euro"
+  ]
+}

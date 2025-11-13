@@ -1,0 +1,16 @@
+{
+  "id": "ace-spirits-watermelon-vodka-soda",
+  "name": "Watermelon Vodka Soda",
+  "brand": "Ace Spirits",
+  "category": "other",
+  "type": "spirit-can",
+  "style": "Vodka Soda",
+  "abvPercent": 5,
+  "defaultVolumeMl": 355,
+  "description": "Vodka-based watermelon soda.",
+  "base": "vodka",
+  "tags": [
+    "rtd",
+    "watermelon"
+  ]
+}

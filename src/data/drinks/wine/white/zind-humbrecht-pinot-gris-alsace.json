@@ -1,0 +1,16 @@
+{
+  "id": "zind-humbrecht-pinot-gris-alsace",
+  "name": "Pinot Gris (Alsace)",
+  "brand": "Zind-Humbrecht",
+  "category": "wine",
+  "type": "pinot-gris",
+  "style": "Pinot Gris",
+  "abvPercent": 13,
+  "defaultVolumeMl": 150,
+  "description": "Fuller-bodied with honey + ginger.",
+  "base": "grapes",
+  "tags": [
+    "pinot-gris",
+    "alsace"
+  ]
+}

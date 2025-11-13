@@ -1,0 +1,16 @@
+{
+  "id": "guinness-guinness-draught",
+  "name": "Guinness Draught",
+  "brand": "Guinness",
+  "category": "beer",
+  "type": "irish-dry",
+  "style": "Irish Dry Stout",
+  "abvPercent": 4.2,
+  "defaultVolumeMl": 440,
+  "description": "Nitrogenated stout.",
+  "base": "barley",
+  "tags": [
+    "stout",
+    "nitro"
+  ]
+}

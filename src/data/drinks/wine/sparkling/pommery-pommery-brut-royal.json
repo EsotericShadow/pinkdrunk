@@ -1,0 +1,16 @@
+{
+  "id": "pommery-pommery-brut-royal",
+  "name": "Pommery Brut Royal",
+  "brand": "Pommery",
+  "category": "wine",
+  "type": "champagne",
+  "style": "Champagne Brut",
+  "abvPercent": 12.5,
+  "defaultVolumeMl": 150,
+  "description": "Champagne brut.",
+  "base": "grapes",
+  "tags": [
+    "champagne",
+    "brut"
+  ]
+}

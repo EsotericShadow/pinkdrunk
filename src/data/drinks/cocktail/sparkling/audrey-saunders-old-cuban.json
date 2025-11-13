@@ -1,0 +1,16 @@
+{
+  "id": "audrey-saunders-old-cuban",
+  "name": "Old Cuban",
+  "brand": "Audrey Saunders",
+  "category": "cocktail",
+  "type": "rum",
+  "style": "Rum Sparkling",
+  "abvPercent": 18,
+  "defaultVolumeMl": 150,
+  "description": "Mint + aged rum + bubbles.",
+  "base": "rum",
+  "tags": [
+    "sparkling",
+    "rum"
+  ]
+}

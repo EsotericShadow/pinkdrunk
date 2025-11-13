@@ -1,0 +1,16 @@
+{
+  "id": "felton-road-pinot-noir-central-otago",
+  "name": "Pinot Noir (Central Otago)",
+  "brand": "Felton Road",
+  "category": "wine",
+  "type": "pinot-noir",
+  "style": "Pinot Noir",
+  "abvPercent": 13.5,
+  "defaultVolumeMl": 150,
+  "description": "Bright red fruit + spice.",
+  "base": "grapes",
+  "tags": [
+    "pinot",
+    "new-zealand"
+  ]
+}

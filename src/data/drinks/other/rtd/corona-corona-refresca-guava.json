@@ -1,0 +1,16 @@
+{
+  "id": "corona-corona-refresca-guava",
+  "name": "Corona Refresca Guava",
+  "brand": "Corona",
+  "category": "other",
+  "type": "fruit-cooler",
+  "style": "Tropical Cooler",
+  "abvPercent": 4.5,
+  "defaultVolumeMl": 330,
+  "description": "Guava lime cooler.",
+  "base": "fermented sugar",
+  "tags": [
+    "cooler",
+    "guava"
+  ]
+}

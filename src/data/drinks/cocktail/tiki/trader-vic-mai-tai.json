@@ -1,0 +1,16 @@
+{
+  "id": "trader-vic-mai-tai",
+  "name": "Mai Tai",
+  "brand": "Trader Vic",
+  "category": "cocktail",
+  "type": "tiki",
+  "style": "Tiki Classic",
+  "abvPercent": 24,
+  "defaultVolumeMl": 150,
+  "description": "Aged + overproof rum tiki drink.",
+  "base": "rum",
+  "tags": [
+    "tiki",
+    "rum"
+  ]
+}

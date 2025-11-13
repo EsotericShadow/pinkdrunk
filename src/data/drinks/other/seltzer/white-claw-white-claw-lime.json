@@ -1,0 +1,16 @@
+{
+  "id": "white-claw-white-claw-lime",
+  "name": "White Claw Lime",
+  "brand": "White Claw",
+  "category": "other",
+  "type": "hard-seltzer",
+  "style": "Hard Seltzer",
+  "abvPercent": 5,
+  "defaultVolumeMl": 355,
+  "description": "Lime white claw.",
+  "base": "fermented sugar",
+  "tags": [
+    "seltzer",
+    "lime"
+  ]
+}

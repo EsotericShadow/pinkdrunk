@@ -1,0 +1,16 @@
+{
+  "id": "topo-chico-topo-chico-strawberry-guava",
+  "name": "Topo Chico Strawberry Guava",
+  "brand": "Topo Chico",
+  "category": "other",
+  "type": "hard-seltzer",
+  "style": "Hard Seltzer",
+  "abvPercent": 4.7,
+  "defaultVolumeMl": 355,
+  "description": "Vodka-based seltzer.",
+  "base": "vodka",
+  "tags": [
+    "seltzer",
+    "guava"
+  ]
+}

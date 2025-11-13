@@ -1,0 +1,16 @@
+{
+  "id": "sunnyd-sunnyd-vodka-seltzer",
+  "name": "SunnyD Vodka Seltzer",
+  "brand": "SunnyD",
+  "category": "other",
+  "type": "hard-seltzer",
+  "style": "Nostalgia Seltzer",
+  "abvPercent": 4.5,
+  "defaultVolumeMl": 355,
+  "description": "Orangey vodka seltzer.",
+  "base": "vodka",
+  "tags": [
+    "seltzer",
+    "orange"
+  ]
+}

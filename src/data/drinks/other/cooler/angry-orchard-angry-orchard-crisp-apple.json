@@ -1,0 +1,16 @@
+{
+  "id": "angry-orchard-angry-orchard-crisp-apple",
+  "name": "Angry Orchard Crisp Apple",
+  "brand": "Angry Orchard",
+  "category": "other",
+  "type": "cider",
+  "style": "Hard Cider",
+  "abvPercent": 5,
+  "defaultVolumeMl": 355,
+  "description": "Sweet apple cider.",
+  "base": "apples",
+  "tags": [
+    "cider",
+    "apple"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "iba-french-75",
+  "name": "French 75",
+  "brand": "IBA",
+  "category": "cocktail",
+  "type": "fizz",
+  "style": "Sparkling Fizz",
+  "abvPercent": 19,
+  "defaultVolumeMl": 150,
+  "description": "Gin, lemon, champagne.",
+  "base": "gin",
+  "tags": [
+    "sparkling",
+    "fizz"
+  ]
+}

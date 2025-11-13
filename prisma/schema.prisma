@@ -1,0 +1,269 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id           String            @id @default(cuid())
+  email        String            @unique
+  passwordHash String
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+  profile      Profile?
+  sessions     DrinkingSession[]
+  favorites    UserFavorite[]
+  settings     UserSettings?
+  impairmentThresholds ImpairmentThreshold[]
+}
+
+model Profile {
+  id                    String   @id @default(cuid())
+  userId                String   @unique
+  name                  String
+  geoLocation           String?
+  profileImageUrl       String?
+  heightCm              Float
+  weightKg              Float
+  bmi                   Float?
+  totalBodyWaterL       Float?
+  age                   Int
+  genderIdentity        GenderIdentity
+  genderCustomLabel     String?
+  menstruation          Boolean
+  cycleDay              Int?
+  medications           Boolean
+  medicationDetails     String?
+  conditions            Boolean
+  conditionDetails      String?
+  metabolismScore       Int
+  toleranceScore        Int
+  pinkdrunkTargetUser   Int      @default(5)
+  pinkdrunkTargetConfidence Float @default(0)
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+  user                  User     @relation(fields: [userId], references: [id])
+}
+
+enum GenderIdentity {
+  female
+  male
+  nonbinary
+  custom
+}
+
+model DrinkingSession {
+  id            String       @id @default(cuid())
+  userId        String
+  startedAt     DateTime     @default(now())
+  endedAt       DateTime?
+  targetLevel   Int          @default(5)
+  targetSource  TargetSource @default(user)
+  endedReason   EndedReason?
+  reportedLevel Float?
+  reportedAt    DateTime?
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  user          User         @relation(fields: [userId], references: [id])
+  drinks        Drink[]
+  predictions   Prediction[]
+  careEvents    CareEvent[]
+}
+
+enum TargetSource {
+  user
+  model_inferred
+}
+
+enum EndedReason {
+  user_end
+  auto_alert
+  timeout
+}
+
+model Drink {
+  id             String           @id @default(cuid())
+  sessionId      String
+  category       DrinkCategory
+  label          String?
+  brandId        String?
+  presetId       String?
+  mixedDrinkId   String?
+  abvPercent     Float
+  volumeMl       Float
+  consumedAt     DateTime         @default(now())
+  ingestionMins  Int              @default(10)
+  session        DrinkingSession  @relation(fields: [sessionId], references: [id])
+  brand          DrinkBrand?      @relation(fields: [brandId], references: [id])
+  preset         DrinkPreset?     @relation(fields: [presetId], references: [id])
+  mixedDrink     MixedDrink?      @relation(fields: [mixedDrinkId], references: [id])
+}
+
+model CareEvent {
+  id        String         @id @default(cuid())
+  sessionId String
+  type      CareEventType
+  volumeMl  Float?
+  createdAt DateTime       @default(now())
+  session   DrinkingSession @relation(fields: [sessionId], references: [id])
+}
+
+enum CareEventType {
+  water
+  snack
+  meal
+}
+
+enum DrinkCategory {
+  beer
+  wine
+  cocktail
+  shot
+  other
+}
+
+model DrinkBrand {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  category    DrinkCategory
+  abvPercent  Float
+  standardVolumeMl Float?   // Standard serving size
+  country     String?
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  drinks      Drink[]
+  servingSizes BrandServingSize[]
+}
+
+model BrandServingSize {
+  id        String   @id @default(cuid())
+  brandId   String
+  sizeType  ServingSizeType
+  volumeMl  Float
+  brand     DrinkBrand @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  
+  @@unique([brandId, sizeType])
+}
+
+model DrinkPreset {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  category    DrinkCategory
+  abvPercent  Float
+  volumeMl    Float
+  servingSize ServingSizeType @default(standard)
+  description String?
+  isDefault   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  drinks      Drink[]
+  favorites   UserFavorite[]
+}
+
+enum ServingSizeType {
+  shot          // 30-50ml
+  single        // Standard single serving
+  double        // Double serving
+  pint          // 473ml (US) or 568ml (UK)
+  half_pint     // Half pint
+  pitcher       // ~1.5-2L
+  bottle        // Standard bottle size
+  can           // Standard can
+  tall          // Tall glass
+  short         // Short glass
+  wine_glass   // Standard wine glass ~150ml
+  champagne_flute // ~120ml
+  martini       // ~150ml
+  highball      // ~240-300ml
+  rocks         // ~180ml
+  standard      // Generic standard serving
+}
+
+model MixedDrink {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  category    DrinkCategory @default(cocktail)
+  abvPercent  Float    // Average ABV for this mixed drink
+  volumeMl    Float    // Standard serving size
+  servingSize ServingSizeType @default(single)
+  ingredients String?  // JSON or text description
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  drinks      Drink[]
+  favorites   UserFavorite[]
+}
+
+model UserFavorite {
+  id          String   @id @default(cuid())
+  userId      String
+  presetId    String?
+  mixedDrinkId String?
+  customName  String?  // For custom favorites
+  customAbv   Float?
+  customVolumeMl Float?
+  customCategory DrinkCategory?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  user        User     @relation(fields: [userId], references: [id])
+  preset      DrinkPreset? @relation(fields: [presetId], references: [id])
+  mixedDrink  MixedDrink? @relation(fields: [mixedDrinkId], references: [id])
+}
+
+model UserSettings {
+  id              String   @id @default(cuid())
+  userId          String   @unique
+  units           UnitSystem @default(metric)
+  defaultVolume   Float?   // Default volume in ml
+  showAbvSuggestions Boolean @default(true)
+  enableNotifications Boolean @default(true)
+  notificationThreshold Float? // Level threshold for notifications
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  user            User     @relation(fields: [userId], references: [id])
+}
+
+enum UnitSystem {
+  metric
+  imperial
+}
+
+model Prediction {
+  id                 String          @id @default(cuid())
+  sessionId          String
+  producedAt         DateTime        @default(now())
+  levelEstimate      Float
+  drinksToTarget     Float
+  recommendedAction  RecommendedAction
+  confidenceLow      Float?
+  confidenceHigh     Float?
+  nextDrinkEtaMinutes Int?
+  createdAt          DateTime        @default(now())
+  session            DrinkingSession @relation(fields: [sessionId], references: [id])
+}
+
+model ImpairmentThreshold {
+  id         String   @id @default(cuid())
+  userId     String
+  level      Int
+  grams      Float
+  confidence Float   @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  user       User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, level])
+}
+
+enum RecommendedAction {
+  keep
+  slow
+  stop
+  hydrate
+  abort
+}

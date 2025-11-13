@@ -1,0 +1,16 @@
+{
+  "id": "truly-truly-wild-berry",
+  "name": "Truly Wild Berry",
+  "brand": "Truly",
+  "category": "other",
+  "type": "hard-seltzer",
+  "style": "Hard Seltzer",
+  "abvPercent": 5,
+  "defaultVolumeMl": 355,
+  "description": "Mixed berry seltzer.",
+  "base": "fermented sugar",
+  "tags": [
+    "seltzer",
+    "berry"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "vizzy-vizzy-strawberry-kiwi",
+  "name": "Vizzy Strawberry Kiwi",
+  "brand": "Vizzy",
+  "category": "other",
+  "type": "hard-seltzer",
+  "style": "Hard Seltzer",
+  "abvPercent": 5,
+  "defaultVolumeMl": 355,
+  "description": "Vitamin C seltzer.",
+  "base": "fermented sugar",
+  "tags": [
+    "seltzer",
+    "strawberry"
+  ]
+}

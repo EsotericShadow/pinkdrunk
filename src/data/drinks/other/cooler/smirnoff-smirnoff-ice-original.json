@@ -1,0 +1,16 @@
+{
+  "id": "smirnoff-smirnoff-ice-original",
+  "name": "Smirnoff Ice Original",
+  "brand": "Smirnoff",
+  "category": "other",
+  "type": "malt-beverage",
+  "style": "Malt Cooler",
+  "abvPercent": 4.5,
+  "defaultVolumeMl": 330,
+  "description": "Throwback citrus cooler.",
+  "base": "malt",
+  "tags": [
+    "cooler",
+    "nostalgia"
+  ]
+}

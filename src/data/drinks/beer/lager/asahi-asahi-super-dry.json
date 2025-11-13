@@ -1,0 +1,16 @@
+{
+  "id": "asahi-asahi-super-dry",
+  "name": "Asahi Super Dry",
+  "brand": "Asahi",
+  "category": "beer",
+  "type": "japanese-lager",
+  "style": "Japanese Dry Lager",
+  "abvPercent": 5.2,
+  "defaultVolumeMl": 350,
+  "description": "Crisp dry lager.",
+  "base": "barley",
+  "tags": [
+    "lager",
+    "japan"
+  ]
+}

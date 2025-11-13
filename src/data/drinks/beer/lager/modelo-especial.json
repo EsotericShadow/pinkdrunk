@@ -1,0 +1,13 @@
+{
+  "id": "modelo-especial",
+  "name": "Modelo Especial",
+  "brand": "Grupo Modelo",
+  "category": "beer",
+  "type": "lager",
+  "style": "Mexican Lager",
+  "abvPercent": 4.4,
+  "defaultVolumeMl": 355,
+  "description": "Crisp golden lager with subtle sweetness.",
+  "base": "barley",
+  "tags": ["lager", "mexican"]
+}

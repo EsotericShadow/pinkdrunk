@@ -1,0 +1,16 @@
+{
+  "id": "samuel-adams-samuel-adams-boston-lager",
+  "name": "Samuel Adams Boston Lager",
+  "brand": "Samuel Adams",
+  "category": "beer",
+  "type": "amber-lager",
+  "style": "Amber Lager",
+  "abvPercent": 5,
+  "defaultVolumeMl": 355,
+  "description": "Balanced amber lager.",
+  "base": "barley",
+  "tags": [
+    "lager",
+    "amber"
+  ]
+}

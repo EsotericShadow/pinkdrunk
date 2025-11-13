@@ -1,0 +1,16 @@
+{
+  "id": "stone-brewing-stone-ipa-na",
+  "name": "Stone IPA (NA)",
+  "brand": "Stone Brewing",
+  "category": "beer",
+  "type": "non-alc-ipa",
+  "style": "IPA NA",
+  "abvPercent": 0.3,
+  "defaultVolumeMl": 355,
+  "description": "Hoppy NA IPA.",
+  "base": "barley",
+  "tags": [
+    "ipa",
+    "na"
+  ]
+}

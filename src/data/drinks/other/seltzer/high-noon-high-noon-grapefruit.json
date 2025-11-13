@@ -1,0 +1,16 @@
+{
+  "id": "high-noon-high-noon-grapefruit",
+  "name": "High Noon Grapefruit",
+  "brand": "High Noon",
+  "category": "other",
+  "type": "spirit-based",
+  "style": "Vodka Soda",
+  "abvPercent": 4.5,
+  "defaultVolumeMl": 355,
+  "description": "Grapefruit vodka soda.",
+  "base": "vodka",
+  "tags": [
+    "seltzer",
+    "grapefruit"
+  ]
+}

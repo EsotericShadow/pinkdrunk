@@ -1,0 +1,16 @@
+{
+  "id": "house-hibiscus-spritz",
+  "name": "Hibiscus Spritz",
+  "brand": "House",
+  "category": "cocktail",
+  "type": "spritz",
+  "style": "Low ABV Spritz",
+  "abvPercent": 8,
+  "defaultVolumeMl": 240,
+  "description": "Aperitif + soda + hibiscus.",
+  "base": "aperitif",
+  "tags": [
+    "spritz",
+    "low-abv"
+  ]
+}

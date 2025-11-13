@@ -1,0 +1,16 @@
+{
+  "id": "topo-chico-topo-chico-ranch-water",
+  "name": "Topo Chico Ranch Water",
+  "brand": "Topo Chico",
+  "category": "other",
+  "type": "spirit-can",
+  "style": "Ranch Water",
+  "abvPercent": 4.7,
+  "defaultVolumeMl": 355,
+  "description": "Tequila-inspired ranch water.",
+  "base": "tequila",
+  "tags": [
+    "ranch-water",
+    "tequila"
+  ]
+}

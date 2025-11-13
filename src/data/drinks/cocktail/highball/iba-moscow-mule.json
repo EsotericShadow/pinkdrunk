@@ -1,0 +1,16 @@
+{
+  "id": "iba-moscow-mule",
+  "name": "Moscow Mule",
+  "brand": "IBA",
+  "category": "cocktail",
+  "type": "mule",
+  "style": "Mule",
+  "abvPercent": 16,
+  "defaultVolumeMl": 300,
+  "description": "Vodka, ginger beer, lime.",
+  "base": "vodka",
+  "tags": [
+    "mule",
+    "ginger"
+  ]
+}

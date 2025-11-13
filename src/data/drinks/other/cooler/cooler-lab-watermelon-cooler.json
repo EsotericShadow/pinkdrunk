@@ -1,0 +1,16 @@
+{
+  "id": "cooler-lab-watermelon-cooler",
+  "name": "Watermelon Cooler",
+  "brand": "Cooler Lab",
+  "category": "other",
+  "type": "fruit-cooler",
+  "style": "Juicy Cooler",
+  "abvPercent": 4.5,
+  "defaultVolumeMl": 355,
+  "description": "Watermelon malt cooler.",
+  "base": "malt",
+  "tags": [
+    "cooler",
+    "watermelon"
+  ]
+}

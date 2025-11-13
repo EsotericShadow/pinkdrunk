@@ -1,0 +1,16 @@
+{
+  "id": "goose-island-goose-island-312",
+  "name": "Goose Island 312",
+  "brand": "Goose Island",
+  "category": "beer",
+  "type": "american-wheat",
+  "style": "American Wheat",
+  "abvPercent": 4.2,
+  "defaultVolumeMl": 355,
+  "description": "Citrus wheat beer.",
+  "base": "barley",
+  "tags": [
+    "wheat",
+    "american"
+  ]
+}

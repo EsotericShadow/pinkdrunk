@@ -1,0 +1,16 @@
+{
+  "id": "vizzy-vizzy-pineapple-mango",
+  "name": "Vizzy Pineapple Mango",
+  "brand": "Vizzy",
+  "category": "other",
+  "type": "hard-seltzer",
+  "style": "Hard Seltzer",
+  "abvPercent": 5,
+  "defaultVolumeMl": 355,
+  "description": "Tropical seltzer.",
+  "base": "fermented sugar",
+  "tags": [
+    "seltzer",
+    "tropical"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "stone-brewing-stone-delicious-ipa",
+  "name": "Stone Delicious IPA",
+  "brand": "Stone Brewing",
+  "category": "beer",
+  "type": "west-coast",
+  "style": "West Coast IPA",
+  "abvPercent": 7,
+  "defaultVolumeMl": 355,
+  "description": "Gluten-reduced hoppy IPA.",
+  "base": "barley",
+  "tags": [
+    "ipa",
+    "craft"
+  ]
+}

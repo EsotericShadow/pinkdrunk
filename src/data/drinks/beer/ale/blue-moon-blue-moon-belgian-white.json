@@ -1,0 +1,16 @@
+{
+  "id": "blue-moon-blue-moon-belgian-white",
+  "name": "Blue Moon Belgian White",
+  "brand": "Blue Moon",
+  "category": "beer",
+  "type": "witbier",
+  "style": "Belgian Wit",
+  "abvPercent": 5.4,
+  "defaultVolumeMl": 355,
+  "description": "Coriander + orange peel.",
+  "base": "barley",
+  "tags": [
+    "ale",
+    "wheat"
+  ]
+}

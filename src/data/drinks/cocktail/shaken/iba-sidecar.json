@@ -1,0 +1,16 @@
+{
+  "id": "iba-sidecar",
+  "name": "Sidecar",
+  "brand": "IBA",
+  "category": "cocktail",
+  "type": "sour",
+  "style": "Classic Sour",
+  "abvPercent": 24,
+  "defaultVolumeMl": 120,
+  "description": "Cognac, triple sec, lemon.",
+  "base": "cognac",
+  "tags": [
+    "sour",
+    "classic"
+  ]
+}

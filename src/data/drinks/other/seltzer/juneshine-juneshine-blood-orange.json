@@ -1,0 +1,16 @@
+{
+  "id": "juneshine-juneshine-blood-orange",
+  "name": "JuneShine Blood Orange",
+  "brand": "JuneShine",
+  "category": "other",
+  "type": "hard-kombucha",
+  "style": "Hard Kombucha",
+  "abvPercent": 6,
+  "defaultVolumeMl": 355,
+  "description": "Blood orange kombucha fizz.",
+  "base": "tea",
+  "tags": [
+    "kombucha",
+    "orange"
+  ]
+}

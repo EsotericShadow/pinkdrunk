@@ -1,0 +1,16 @@
+{
+  "id": "casamigos-casamigos-reposado",
+  "name": "Casamigos Reposado",
+  "brand": "Casamigos",
+  "category": "shot",
+  "type": "reposado",
+  "style": "Reposado Tequila",
+  "abvPercent": 40,
+  "defaultVolumeMl": 44,
+  "description": "Tequila rested in oak.",
+  "base": "agave",
+  "tags": [
+    "tequila",
+    "reposado"
+  ]
+}

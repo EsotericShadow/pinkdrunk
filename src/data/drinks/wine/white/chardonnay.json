@@ -1,0 +1,13 @@
+{
+  "id": "chardonnay",
+  "name": "Chardonnay",
+  "brand": "Sonoma Coast",
+  "category": "wine",
+  "type": "white",
+  "style": "Chardonnay",
+  "abvPercent": 13.5,
+  "defaultVolumeMl": 150,
+  "description": "Medium-bodied white with apple, pear, and oak.",
+  "base": "grapes",
+  "tags": ["white", "chardonnay"]
+}

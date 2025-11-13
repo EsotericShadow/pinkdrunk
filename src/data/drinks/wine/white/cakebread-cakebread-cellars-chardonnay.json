@@ -1,0 +1,16 @@
+{
+  "id": "cakebread-cakebread-cellars-chardonnay",
+  "name": "Cakebread Cellars Chardonnay",
+  "brand": "Cakebread",
+  "category": "wine",
+  "type": "chardonnay",
+  "style": "Chardonnay",
+  "abvPercent": 14,
+  "defaultVolumeMl": 150,
+  "description": "Buttery Napa chardonnay.",
+  "base": "grapes",
+  "tags": [
+    "white",
+    "napa"
+  ]
+}

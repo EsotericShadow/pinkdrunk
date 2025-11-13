@@ -1,0 +1,16 @@
+{
+  "id": "dick-bradsell-espresso-martini",
+  "name": "Espresso Martini",
+  "brand": "Dick Bradsell",
+  "category": "cocktail",
+  "type": "coffee",
+  "style": "Modern Classic",
+  "abvPercent": 20,
+  "defaultVolumeMl": 120,
+  "description": "Vodka + espresso.",
+  "base": "vodka",
+  "tags": [
+    "coffee",
+    "martini"
+  ]
+}

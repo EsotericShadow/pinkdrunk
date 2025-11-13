@@ -1,0 +1,16 @@
+{
+  "id": "campari-aperol-spritz",
+  "name": "Aperol Spritz",
+  "brand": "Campari",
+  "category": "cocktail",
+  "type": "sparkling",
+  "style": "Venetian",
+  "abvPercent": 11,
+  "defaultVolumeMl": 240,
+  "description": "Aperol + prosecco highball.",
+  "base": "aperitif",
+  "tags": [
+    "spritz",
+    "brunch"
+  ]
+}

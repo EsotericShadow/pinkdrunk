@@ -1,0 +1,16 @@
+{
+  "id": "iba-negroni",
+  "name": "Negroni",
+  "brand": "IBA",
+  "category": "cocktail",
+  "type": "spirit-forward",
+  "style": "IBA Classic",
+  "abvPercent": 24,
+  "defaultVolumeMl": 90,
+  "description": "Gin, Campari, sweet vermouth.",
+  "base": "gin",
+  "tags": [
+    "classic",
+    "bitter"
+  ]
+}

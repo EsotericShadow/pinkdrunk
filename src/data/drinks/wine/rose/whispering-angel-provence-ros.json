@@ -1,0 +1,16 @@
+{
+  "id": "whispering-angel-provence-ros",
+  "name": "Provence Rosé",
+  "brand": "Whispering Angel",
+  "category": "wine",
+  "type": "grenache",
+  "style": "Provencal Rosé",
+  "abvPercent": 12.5,
+  "defaultVolumeMl": 150,
+  "description": "Dry rosé with strawberry notes.",
+  "base": "grapes",
+  "tags": [
+    "rose",
+    "summer"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "guinness-guinness-nitro-cold-brew",
+  "name": "Guinness Nitro Cold Brew",
+  "brand": "Guinness",
+  "category": "beer",
+  "type": "coffee-stout",
+  "style": "Coffee Stout",
+  "abvPercent": 4,
+  "defaultVolumeMl": 440,
+  "description": "Nitro stout with coffee.",
+  "base": "barley",
+  "tags": [
+    "stout",
+    "coffee"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "freixenet-cava-brut",
+  "name": "Cava Brut",
+  "brand": "Freixenet",
+  "category": "wine",
+  "type": "cava",
+  "style": "Cava Brut",
+  "abvPercent": 11.5,
+  "defaultVolumeMl": 150,
+  "description": "Spanish sparkling wine.",
+  "base": "grapes",
+  "tags": [
+    "sparkling",
+    "cava"
+  ]
+}

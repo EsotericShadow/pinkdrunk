@@ -1,0 +1,16 @@
+{
+  "id": "maison-brut-champagne-brut",
+  "name": "Champagne Brut",
+  "brand": "Maison Brut",
+  "category": "wine",
+  "type": "champagne",
+  "style": "Brut",
+  "abvPercent": 12,
+  "defaultVolumeMl": 150,
+  "description": "Classic Champagne blend.",
+  "base": "grapes",
+  "tags": [
+    "sparkling",
+    "champagne"
+  ]
+}

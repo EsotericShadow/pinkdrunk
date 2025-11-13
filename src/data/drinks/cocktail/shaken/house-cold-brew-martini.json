@@ -1,0 +1,16 @@
+{
+  "id": "house-cold-brew-martini",
+  "name": "Cold Brew Martini",
+  "brand": "House",
+  "category": "cocktail",
+  "type": "coffee",
+  "style": "Modern Coffee",
+  "abvPercent": 18,
+  "defaultVolumeMl": 120,
+  "description": "Vodka espresso riff.",
+  "base": "coffee",
+  "tags": [
+    "coffee",
+    "martini"
+  ]
+}

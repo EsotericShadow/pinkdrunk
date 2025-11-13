@@ -1,0 +1,16 @@
+{
+  "id": "white-claw-white-claw-mango",
+  "name": "White Claw Mango",
+  "brand": "White Claw",
+  "category": "other",
+  "type": "hard-seltzer",
+  "style": "Hard Seltzer",
+  "abvPercent": 5,
+  "defaultVolumeMl": 355,
+  "description": "Mango flavored seltzer.",
+  "base": "fermented sugar",
+  "tags": [
+    "seltzer",
+    "mango"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "guinness-guinness-extra-stout",
+  "name": "Guinness Extra Stout",
+  "brand": "Guinness",
+  "category": "beer",
+  "type": "foreign-extra",
+  "style": "Foreign Extra Stout",
+  "abvPercent": 5.6,
+  "defaultVolumeMl": 355,
+  "description": "Robust stout for bottle pours.",
+  "base": "barley",
+  "tags": [
+    "stout",
+    "import"
+  ]
+}

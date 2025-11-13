@@ -1,0 +1,16 @@
+{
+  "id": "iba-margarita",
+  "name": "Margarita",
+  "brand": "IBA",
+  "category": "cocktail",
+  "type": "sour",
+  "style": "IBA Classic",
+  "abvPercent": 22,
+  "defaultVolumeMl": 120,
+  "description": "Tequila, triple sec, lime.",
+  "base": "tequila",
+  "tags": [
+    "sour",
+    "lime"
+  ]
+}

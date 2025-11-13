@@ -1,0 +1,16 @@
+{
+  "id": "iba-sazerac",
+  "name": "Sazerac",
+  "brand": "IBA",
+  "category": "cocktail",
+  "type": "spirit-forward",
+  "style": "Classic Rye",
+  "abvPercent": 28,
+  "defaultVolumeMl": 90,
+  "description": "Rye, absinthe spritz.",
+  "base": "rye",
+  "tags": [
+    "classic",
+    "rye"
+  ]
+}

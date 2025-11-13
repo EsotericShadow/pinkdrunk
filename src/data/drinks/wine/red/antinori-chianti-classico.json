@@ -1,0 +1,16 @@
+{
+  "id": "antinori-chianti-classico",
+  "name": "Chianti Classico",
+  "brand": "Antinori",
+  "category": "wine",
+  "type": "chianti",
+  "style": "Sangiovese Blend",
+  "abvPercent": 13.5,
+  "defaultVolumeMl": 150,
+  "description": "Tuscan red with cherry + herbs.",
+  "base": "grapes",
+  "tags": [
+    "red",
+    "italy"
+  ]
+}

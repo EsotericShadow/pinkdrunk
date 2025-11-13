@@ -1,0 +1,16 @@
+{
+  "id": "bulleit-bulleit-bourbon",
+  "name": "Bulleit Bourbon",
+  "brand": "Bulleit",
+  "category": "shot",
+  "type": "bourbon",
+  "style": "Kentucky Bourbon",
+  "abvPercent": 45,
+  "defaultVolumeMl": 44,
+  "description": "High-rye bourbon.",
+  "base": "barley",
+  "tags": [
+    "whiskey",
+    "bourbon"
+  ]
+}

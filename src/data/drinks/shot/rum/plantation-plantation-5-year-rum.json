@@ -1,0 +1,16 @@
+{
+  "id": "plantation-plantation-5-year-rum",
+  "name": "Plantation 5 Year Rum",
+  "brand": "Plantation",
+  "category": "shot",
+  "type": "aged",
+  "style": "Aged Rum",
+  "abvPercent": 40,
+  "defaultVolumeMl": 44,
+  "description": "Barbados aged rum.",
+  "base": "sugarcane",
+  "tags": [
+    "rum",
+    "aged"
+  ]
+}

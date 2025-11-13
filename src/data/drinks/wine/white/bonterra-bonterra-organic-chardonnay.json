@@ -1,0 +1,16 @@
+{
+  "id": "bonterra-bonterra-organic-chardonnay",
+  "name": "Bonterra Organic Chardonnay",
+  "brand": "Bonterra",
+  "category": "wine",
+  "type": "chardonnay",
+  "style": "Chardonnay",
+  "abvPercent": 13.5,
+  "defaultVolumeMl": 150,
+  "description": "Organic Cali chardonnay.",
+  "base": "grapes",
+  "tags": [
+    "white",
+    "organic"
+  ]
+}

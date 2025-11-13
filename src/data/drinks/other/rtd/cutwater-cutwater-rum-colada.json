@@ -1,0 +1,16 @@
+{
+  "id": "cutwater-cutwater-rum-colada",
+  "name": "Cutwater Rum Colada",
+  "brand": "Cutwater",
+  "category": "other",
+  "type": "spirit-can",
+  "style": "Creamy RTD",
+  "abvPercent": 13,
+  "defaultVolumeMl": 355,
+  "description": "Piña colada can.",
+  "base": "rum",
+  "tags": [
+    "rtd",
+    "pina-colada"
+  ]
+}

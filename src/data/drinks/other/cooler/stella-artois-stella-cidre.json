@@ -1,0 +1,16 @@
+{
+  "id": "stella-artois-stella-cidre",
+  "name": "Stella Cidre",
+  "brand": "Stella Artois",
+  "category": "other",
+  "type": "cider",
+  "style": "European Cider",
+  "abvPercent": 4.5,
+  "defaultVolumeMl": 355,
+  "description": "European-style cider.",
+  "base": "apples",
+  "tags": [
+    "cider",
+    "euro"
+  ]
+}

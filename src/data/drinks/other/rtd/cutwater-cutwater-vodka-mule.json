@@ -1,0 +1,16 @@
+{
+  "id": "cutwater-cutwater-vodka-mule",
+  "name": "Cutwater Vodka Mule",
+  "brand": "Cutwater",
+  "category": "other",
+  "type": "spirit-can",
+  "style": "Canned Cocktail",
+  "abvPercent": 7,
+  "defaultVolumeMl": 355,
+  "description": "Vodka mule RTD.",
+  "base": "vodka",
+  "tags": [
+    "rtd",
+    "moscow-mule"
+  ]
+}

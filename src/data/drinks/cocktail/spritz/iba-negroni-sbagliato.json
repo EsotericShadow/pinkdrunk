@@ -1,0 +1,16 @@
+{
+  "id": "iba-negroni-sbagliato",
+  "name": "Negroni Sbagliato",
+  "brand": "IBA",
+  "category": "cocktail",
+  "type": "negroni-spritz",
+  "style": "Sparkling Negroni",
+  "abvPercent": 12,
+  "defaultVolumeMl": 150,
+  "description": "Campari + prosecco.",
+  "base": "aperitif",
+  "tags": [
+    "spritz",
+    "bubbly"
+  ]
+}

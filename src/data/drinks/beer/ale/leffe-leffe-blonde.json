@@ -1,0 +1,16 @@
+{
+  "id": "leffe-leffe-blonde",
+  "name": "Leffe Blonde",
+  "brand": "Leffe",
+  "category": "beer",
+  "type": "abbey-blonde",
+  "style": "Abbey Blonde",
+  "abvPercent": 6.6,
+  "defaultVolumeMl": 330,
+  "description": "Belgian blonde ale.",
+  "base": "barley",
+  "tags": [
+    "ale",
+    "belgian"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "pilsner-urquell-pilsner-urquell",
+  "name": "Pilsner Urquell",
+  "brand": "Pilsner Urquell",
+  "category": "beer",
+  "type": "bohemian-pilsner",
+  "style": "Bohemian Pilsner",
+  "abvPercent": 4.4,
+  "defaultVolumeMl": 330,
+  "description": "Classic Czech pilsner.",
+  "base": "barley",
+  "tags": [
+    "lager",
+    "pilsner"
+  ]
+}
