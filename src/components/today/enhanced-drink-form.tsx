@@ -35,7 +35,6 @@ export function EnhancedDrinkForm({ drinkForm, onChange, onSubmit, disabled, isP
   const [globalSearch, setGlobalSearch] = useState("");
   const [activeSection, setActiveSection] = useState<"recents" | "popular" | "all" | "custom">("popular");
   const [recents, setRecents] = useState<DrinkCatalogEntry[]>([]);
-  const fallback = getDefaultOptionForCategory(drinkForm.category);
 
   const globalEnabled = globalSearch.trim().length >= 2;
   const { data: allEntries = [], isLoading: isAllLoading } = useDrinkCatalog("all", undefined);
@@ -132,6 +131,12 @@ export function EnhancedDrinkForm({ drinkForm, onChange, onSubmit, disabled, isP
     }
 
     if (drinkForm.mode !== "catalog") {
+      const selectedOption = drinkForm.optionId
+        ? recents.find((recent) => recent.id === drinkForm.optionId) ??
+          globalResults.find((option) => option.id === drinkForm.optionId) ??
+          allEntries.find((option) => option.id === drinkForm.optionId)
+        : undefined;
+
       const fallback = selectedOption ?? getDefaultOptionForCategory(drinkForm.category);
       const resolvedAbv = (fallback?.abvPercent ?? Number(drinkForm.abvPercent)) || 0;
       const resolvedVolume = (fallback?.defaultVolumeMl ?? Number(drinkForm.volumeMl)) || 0;
